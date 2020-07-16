@@ -69,3 +69,129 @@ export class Gravatar extends Entity {
     this.set("imageUrl", Value.fromString(value));
   }
 }
+
+export class Account extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Account entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Account entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Account", id.toString(), this);
+  }
+
+  static load(id: string): Account | null {
+    return store.get("Account", id) as Account | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get verified(): boolean {
+    let value = this.get("verified");
+    return value.toBoolean();
+  }
+
+  set verified(value: boolean) {
+    this.set("verified", Value.fromBoolean(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get role(): string | null {
+    let value = this.get("role");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set role(value: string | null) {
+    if (value === null) {
+      this.unset("role");
+    } else {
+      this.set("role", Value.fromString(value as string));
+    }
+  }
+
+  get nomorInduk(): string | null {
+    let value = this.get("nomorInduk");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set nomorInduk(value: string | null) {
+    if (value === null) {
+      this.unset("nomorInduk");
+    } else {
+      this.set("nomorInduk", Value.fromString(value as string));
+    }
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}

@@ -1,6 +1,6 @@
-specVersion: 0.0.2
-description: Gravatar for Ethereum
-repository: https://github.com/graphprotocol/example-subgraph
+specVersion: 0.0.3
+description: PenerbitanIjazah Subgraph
+repository: https://github.com/alifmufthi91/IjazahSubgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -25,3 +25,26 @@ dataSources:
         - event: UpdatedGravatar(uint256,address,string,string)
           handler: handleUpdatedGravatar
       file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: AccountManager
+    network: rinkeby
+    source:
+      address: '0x06c4103CFD3f554F5858Db38D3b692018282f122'
+      abi: AccountManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: AccountManager
+          file: ./abis/AccountManager.json
+      eventHandlers:
+        - event: AccountCreated(address,address,string,string,string,bool,uint256)
+          handler: handleNewAccount
+        - event: AccountUpdated(address,address,string,string,string,bool,uint256)
+          handler: handleUpdatedAccount
+        - event: AccountNameUpdated(address,address,string,string,uint256)
+          handler: handleUpdatedNameAccount
+      file: ./src/mappingAccountManager.ts

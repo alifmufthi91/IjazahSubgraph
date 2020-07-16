@@ -4,3 +4,14 @@ type Gravatar @entity {
   displayName: String!
   imageUrl: String!
 }
+
+type Account @entity {
+  id: ID!
+  owner: Bytes!
+  verified: Boolean!
+  name: String!
+  role: String
+  nomorInduk: String
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
