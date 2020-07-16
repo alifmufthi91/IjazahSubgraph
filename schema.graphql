@@ -7,7 +7,6 @@ type Gravatar @entity {
 
 type Account @entity {
   id: ID!
-  owner: Bytes!
   verified: Boolean!
   name: String!
   role: String
