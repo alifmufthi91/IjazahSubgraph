@@ -7,10 +7,30 @@ type Gravatar @entity {
 
 type Account @entity {
   id: ID!
+  address: Bytes!
   verified: Boolean!
-  name: String!
-  role: String
-  nomorInduk: String
+  name: Bytes!
+  role: Bytes
+  nomorInduk: Bytes
   timeCreated: BigInt
   lastUpdated: BigInt
+}
+
+type Mahasiswa @entity {
+  id: ID!
+  nim: Bytes!
+  name: Bytes!
+  prodi: Bytes
+  isLulus: Boolean
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
+
+type Civitas @entity {
+  id: ID!
+  nip: Bytes!
+  name: Bytes!
+  timeCreated: BigInt
+  lastUpdated: BigInt
+  role:Bytes
 }

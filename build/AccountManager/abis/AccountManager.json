@@ -1,17 +1,6 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "ownerName",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "idNumber",
-        "type": "string"
-      }
-    ],
+    "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
@@ -32,21 +21,21 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "role",
-        "type": "string"
+        "type": "bytes9"
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "fullName",
-        "type": "string"
+        "type": "bytes32"
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes21",
         "name": "nomorInduk",
-        "type": "string"
+        "type": "bytes21"
       },
       {
         "indexed": false,
@@ -81,15 +70,40 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "oldName",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "timeDeleted",
+        "type": "uint256"
+      }
+    ],
+    "name": "AccountDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "oldName",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
         "name": "newName",
-        "type": "string"
+        "type": "bytes32"
       },
       {
         "indexed": false,
@@ -118,21 +132,21 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "role",
-        "type": "string"
+        "type": "bytes9"
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "fullName",
-        "type": "string"
+        "type": "bytes32"
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes21",
         "name": "nomorInduk",
-        "type": "string"
+        "type": "bytes21"
       },
       {
         "indexed": false,
@@ -236,9 +250,9 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "role",
-        "type": "string"
+        "type": "bytes9"
       },
       {
         "indexed": false,
@@ -369,22 +383,35 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "_fullName",
-        "type": "string"
+        "type": "bytes32"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes21",
         "name": "_idNumber",
-        "type": "string"
+        "type": "bytes21"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "_role",
-        "type": "string"
+        "type": "bytes9"
       }
     ],
     "name": "createAccount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "accountAddress",
+        "type": "address"
+      }
+    ],
+    "name": "deleteAccount",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -410,9 +437,9 @@
         "type": "bool"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "",
-        "type": "string"
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -421,9 +448,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "role",
-        "type": "string"
+        "type": "bytes9"
       }
     ],
     "name": "getBytesOfRole",
@@ -448,9 +475,9 @@
     "name": "getRole",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "",
-        "type": "string"
+        "type": "bytes9"
       }
     ],
     "stateMutability": "view",
@@ -568,25 +595,6 @@
         "type": "address"
       }
     ],
-    "name": "isAccRegistered",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
     "name": "isAdmin",
     "outputs": [
       {
@@ -606,9 +614,9 @@
         "type": "address"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "_role",
-        "type": "string"
+        "type": "bytes9"
       }
     ],
     "name": "lepasRole",
@@ -688,9 +696,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "_fullName",
-        "type": "string"
+        "type": "bytes32"
       }
     ],
     "name": "updateAccountName",
@@ -706,14 +714,14 @@
         "type": "address"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes21",
         "name": "_nip",
-        "type": "string"
+        "type": "bytes21"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes9",
         "name": "_role",
-        "type": "string"
+        "type": "bytes9"
       },
       {
         "internalType": "address",
@@ -753,9 +761,9 @@
         "type": "address"
       },
       {
-        "internalType": "string",
+        "internalType": "bytes12",
         "name": "_nim",
-        "type": "string"
+        "type": "bytes12"
       },
       {
         "internalType": "address",

@@ -31,16 +31,16 @@ export class AccountCreated__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get role(): string {
-    return this._event.parameters[2].value.toString();
+  get role(): Bytes {
+    return this._event.parameters[2].value.toBytes();
   }
 
-  get fullName(): string {
-    return this._event.parameters[3].value.toString();
+  get fullName(): Bytes {
+    return this._event.parameters[3].value.toBytes();
   }
 
-  get nomorInduk(): string {
-    return this._event.parameters[4].value.toString();
+  get nomorInduk(): Bytes {
+    return this._event.parameters[4].value.toBytes();
   }
 
   get verified(): boolean {
@@ -49,6 +49,32 @@ export class AccountCreated__Params {
 
   get timeCreated(): BigInt {
     return this._event.parameters[6].value.toBigInt();
+  }
+}
+
+export class AccountDeleted extends ethereum.Event {
+  get params(): AccountDeleted__Params {
+    return new AccountDeleted__Params(this);
+  }
+}
+
+export class AccountDeleted__Params {
+  _event: AccountDeleted;
+
+  constructor(event: AccountDeleted) {
+    this._event = event;
+  }
+
+  get sender(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get owner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get timeDeleted(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 }
 
@@ -73,12 +99,12 @@ export class AccountNameUpdated__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get oldName(): string {
-    return this._event.parameters[2].value.toString();
+  get oldName(): Bytes {
+    return this._event.parameters[2].value.toBytes();
   }
 
-  get newName(): string {
-    return this._event.parameters[3].value.toString();
+  get newName(): Bytes {
+    return this._event.parameters[3].value.toBytes();
   }
 
   get timeUpdated(): BigInt {
@@ -107,16 +133,16 @@ export class AccountUpdated__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get role(): string {
-    return this._event.parameters[2].value.toString();
+  get role(): Bytes {
+    return this._event.parameters[2].value.toBytes();
   }
 
-  get fullName(): string {
-    return this._event.parameters[3].value.toString();
+  get fullName(): Bytes {
+    return this._event.parameters[3].value.toBytes();
   }
 
-  get nomorInduk(): string {
-    return this._event.parameters[4].value.toString();
+  get nomorInduk(): Bytes {
+    return this._event.parameters[4].value.toBytes();
   }
 
   get verified(): boolean {
@@ -223,8 +249,8 @@ export class RoleRemoved__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get role(): string {
-    return this._event.parameters[2].value.toString();
+  get role(): Bytes {
+    return this._event.parameters[2].value.toBytes();
   }
 
   get timeRemoved(): BigInt {
@@ -261,9 +287,9 @@ export class RoleRevoked__Params {
 export class AccountManager__getAccountResult {
   value0: Address;
   value1: boolean;
-  value2: string;
+  value2: Bytes;
 
-  constructor(value0: Address, value1: boolean, value2: string) {
+  constructor(value0: Address, value1: boolean, value2: Bytes) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
@@ -273,7 +299,7 @@ export class AccountManager__getAccountResult {
     let map = new TypedMap<string, ethereum.Value>();
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromBoolean(this.value1));
-    map.set("value2", ethereum.Value.fromString(this.value2));
+    map.set("value2", ethereum.Value.fromFixedBytes(this.value2));
     return map;
   }
 }
@@ -403,14 +429,14 @@ export class AccountManager extends ethereum.SmartContract {
   getAccount(account: Address): AccountManager__getAccountResult {
     let result = super.call(
       "getAccount",
-      "getAccount(address):(address,bool,string)",
+      "getAccount(address):(address,bool,bytes32)",
       [ethereum.Value.fromAddress(account)]
     );
 
     return new AccountManager__getAccountResult(
       result[0].toAddress(),
       result[1].toBoolean(),
-      result[2].toString()
+      result[2].toBytes()
     );
   }
 
@@ -419,7 +445,7 @@ export class AccountManager extends ethereum.SmartContract {
   ): ethereum.CallResult<AccountManager__getAccountResult> {
     let result = super.tryCall(
       "getAccount",
-      "getAccount(address):(address,bool,string)",
+      "getAccount(address):(address,bool,bytes32)",
       [ethereum.Value.fromAddress(account)]
     );
     if (result.reverted) {
@@ -430,24 +456,24 @@ export class AccountManager extends ethereum.SmartContract {
       new AccountManager__getAccountResult(
         value[0].toAddress(),
         value[1].toBoolean(),
-        value[2].toString()
+        value[2].toBytes()
       )
     );
   }
 
-  getBytesOfRole(role: string): boolean {
-    let result = super.call("getBytesOfRole", "getBytesOfRole(string):(bool)", [
-      ethereum.Value.fromString(role)
+  getBytesOfRole(role: Bytes): boolean {
+    let result = super.call("getBytesOfRole", "getBytesOfRole(bytes9):(bool)", [
+      ethereum.Value.fromFixedBytes(role)
     ]);
 
     return result[0].toBoolean();
   }
 
-  try_getBytesOfRole(role: string): ethereum.CallResult<boolean> {
+  try_getBytesOfRole(role: Bytes): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "getBytesOfRole",
-      "getBytesOfRole(string):(bool)",
-      [ethereum.Value.fromString(role)]
+      "getBytesOfRole(bytes9):(bool)",
+      [ethereum.Value.fromFixedBytes(role)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -456,23 +482,23 @@ export class AccountManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  getRole(account: Address): string {
-    let result = super.call("getRole", "getRole(address):(string)", [
+  getRole(account: Address): Bytes {
+    let result = super.call("getRole", "getRole(address):(bytes9)", [
       ethereum.Value.fromAddress(account)
     ]);
 
-    return result[0].toString();
+    return result[0].toBytes();
   }
 
-  try_getRole(account: Address): ethereum.CallResult<string> {
-    let result = super.tryCall("getRole", "getRole(address):(string)", [
+  try_getRole(account: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall("getRole", "getRole(address):(bytes9)", [
       ethereum.Value.fromAddress(account)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   getRoleAdmin(role: Bytes): Bytes {
@@ -569,29 +595,6 @@ export class AccountManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  isAccRegistered(account: Address): boolean {
-    let result = super.call(
-      "isAccRegistered",
-      "isAccRegistered(address):(bool)",
-      [ethereum.Value.fromAddress(account)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isAccRegistered(account: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isAccRegistered",
-      "isAccRegistered(address):(bool)",
-      [ethereum.Value.fromAddress(account)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   isAdmin(account: Address): boolean {
     let result = super.call("isAdmin", "isAdmin(address):(bool)", [
       ethereum.Value.fromAddress(account)
@@ -628,17 +631,17 @@ export class AccountManager extends ethereum.SmartContract {
 
   verifyCivitas(
     _address: Address,
-    _nip: string,
-    _role: string,
+    _nip: Bytes,
+    _role: Bytes,
     _sender: Address
   ): Address {
     let result = super.call(
       "verifyCivitas",
-      "verifyCivitas(address,string,string,address):(address)",
+      "verifyCivitas(address,bytes21,bytes9,address):(address)",
       [
         ethereum.Value.fromAddress(_address),
-        ethereum.Value.fromString(_nip),
-        ethereum.Value.fromString(_role),
+        ethereum.Value.fromFixedBytes(_nip),
+        ethereum.Value.fromFixedBytes(_role),
         ethereum.Value.fromAddress(_sender)
       ]
     );
@@ -648,17 +651,17 @@ export class AccountManager extends ethereum.SmartContract {
 
   try_verifyCivitas(
     _address: Address,
-    _nip: string,
-    _role: string,
+    _nip: Bytes,
+    _role: Bytes,
     _sender: Address
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "verifyCivitas",
-      "verifyCivitas(address,string,string,address):(address)",
+      "verifyCivitas(address,bytes21,bytes9,address):(address)",
       [
         ethereum.Value.fromAddress(_address),
-        ethereum.Value.fromString(_nip),
-        ethereum.Value.fromString(_role),
+        ethereum.Value.fromFixedBytes(_nip),
+        ethereum.Value.fromFixedBytes(_role),
         ethereum.Value.fromAddress(_sender)
       ]
     );
@@ -669,13 +672,13 @@ export class AccountManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  verifyMahasiswa(_address: Address, _nim: string, _sender: Address): Address {
+  verifyMahasiswa(_address: Address, _nim: Bytes, _sender: Address): Address {
     let result = super.call(
       "verifyMahasiswa",
-      "verifyMahasiswa(address,string,address):(address)",
+      "verifyMahasiswa(address,bytes12,address):(address)",
       [
         ethereum.Value.fromAddress(_address),
-        ethereum.Value.fromString(_nim),
+        ethereum.Value.fromFixedBytes(_nim),
         ethereum.Value.fromAddress(_sender)
       ]
     );
@@ -685,15 +688,15 @@ export class AccountManager extends ethereum.SmartContract {
 
   try_verifyMahasiswa(
     _address: Address,
-    _nim: string,
+    _nim: Bytes,
     _sender: Address
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "verifyMahasiswa",
-      "verifyMahasiswa(address,string,address):(address)",
+      "verifyMahasiswa(address,bytes12,address):(address)",
       [
         ethereum.Value.fromAddress(_address),
-        ethereum.Value.fromString(_nim),
+        ethereum.Value.fromFixedBytes(_nim),
         ethereum.Value.fromAddress(_sender)
       ]
     );
@@ -720,14 +723,6 @@ export class ConstructorCall__Inputs {
 
   constructor(call: ConstructorCall) {
     this._call = call;
-  }
-
-  get ownerName(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-
-  get idNumber(): string {
-    return this._call.inputValues[1].value.toString();
   }
 }
 
@@ -756,16 +751,16 @@ export class CreateAccountCall__Inputs {
     this._call = call;
   }
 
-  get _fullName(): string {
-    return this._call.inputValues[0].value.toString();
+  get _fullName(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
   }
 
-  get _idNumber(): string {
-    return this._call.inputValues[1].value.toString();
+  get _idNumber(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 
-  get _role(): string {
-    return this._call.inputValues[2].value.toString();
+  get _role(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
   }
 }
 
@@ -773,6 +768,36 @@ export class CreateAccountCall__Outputs {
   _call: CreateAccountCall;
 
   constructor(call: CreateAccountCall) {
+    this._call = call;
+  }
+}
+
+export class DeleteAccountCall extends ethereum.Call {
+  get inputs(): DeleteAccountCall__Inputs {
+    return new DeleteAccountCall__Inputs(this);
+  }
+
+  get outputs(): DeleteAccountCall__Outputs {
+    return new DeleteAccountCall__Outputs(this);
+  }
+}
+
+export class DeleteAccountCall__Inputs {
+  _call: DeleteAccountCall;
+
+  constructor(call: DeleteAccountCall) {
+    this._call = call;
+  }
+
+  get accountAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class DeleteAccountCall__Outputs {
+  _call: DeleteAccountCall;
+
+  constructor(call: DeleteAccountCall) {
     this._call = call;
   }
 }
@@ -832,8 +857,8 @@ export class LepasRoleCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _role(): string {
-    return this._call.inputValues[1].value.toString();
+  get _role(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 }
 
@@ -986,8 +1011,8 @@ export class UpdateAccountNameCall__Inputs {
     this._call = call;
   }
 
-  get _fullName(): string {
-    return this._call.inputValues[0].value.toString();
+  get _fullName(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
   }
 }
 
@@ -1020,12 +1045,12 @@ export class VerifyCivitasCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _nip(): string {
-    return this._call.inputValues[1].value.toString();
+  get _nip(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 
-  get _role(): string {
-    return this._call.inputValues[2].value.toString();
+  get _role(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
   }
 
   get _sender(): Address {
@@ -1096,8 +1121,8 @@ export class VerifyMahasiswaCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _nim(): string {
-    return this._call.inputValues[1].value.toString();
+  get _nim(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 
   get _sender(): Address {

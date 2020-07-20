@@ -29,7 +29,7 @@ dataSources:
     name: AccountManager
     network: rinkeby
     source:
-      address: '0x06c4103CFD3f554F5858Db38D3b692018282f122'
+      address: '0x45bb90E156DBe6D9eDaddEa3BbA459f417f2a77b'
       abi: AccountManager
     mapping:
       kind: ethereum/events
@@ -41,10 +41,31 @@ dataSources:
         - name: AccountManager
           file: ./abis/AccountManager.json
       eventHandlers:
-        - event: AccountCreated(address,address,string,string,string,bool,uint256)
+        - event: AccountCreated(address,address,bytes9,bytes32,bytes21,bool,uint256)
           handler: handleNewAccount
-        - event: AccountUpdated(address,address,string,string,string,bool,uint256)
+        - event: AccountUpdated(address,address,bytes9,bytes32,bytes21,bool,uint256)
           handler: handleUpdatedAccount
-        - event: AccountNameUpdated(address,address,string,string,uint256)
+        - event: AccountNameUpdated(address,address,bytes32,bytes32,uint256)
           handler: handleUpdatedNameAccount
       file: ./src/mappingAccountManager.ts
+  - kind: ethereum/contract
+    name: CivitasHelper
+    network: rinkeby
+    source:
+      address: '0x85BDd84EF5C38648e855e7e6dee2371286fC2b69'
+      abi: CivitasHelper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Civitas
+      abis:
+        - name: CivitasHelper
+          file: ./abis/CivitasHelper.json
+      eventHandlers:
+        - event: MahasiswaCreated(address,bytes12,bytes32,bytes,bool,uint256)
+          handler: handleNewMahasiswa
+        - event: CivitasCreated(address,bytes21,bytes32,uint256)
+          handler: handleNewCivitas
+      file: ./src/mappingCivitasHelper.ts

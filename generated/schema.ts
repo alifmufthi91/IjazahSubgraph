@@ -100,13 +100,13 @@ export class Account extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get owner(): Bytes {
-    let value = this.get("owner");
+  get address(): Bytes {
+    let value = this.get("address");
     return value.toBytes();
   }
 
-  set owner(value: Bytes) {
-    this.set("owner", Value.fromBytes(value));
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
   }
 
   get verified(): boolean {
@@ -118,46 +118,46 @@ export class Account extends Entity {
     this.set("verified", Value.fromBoolean(value));
   }
 
-  get name(): string {
+  get name(): Bytes {
     let value = this.get("name");
-    return value.toString();
+    return value.toBytes();
   }
 
-  set name(value: string) {
-    this.set("name", Value.fromString(value));
+  set name(value: Bytes) {
+    this.set("name", Value.fromBytes(value));
   }
 
-  get role(): string | null {
+  get role(): Bytes | null {
     let value = this.get("role");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBytes();
     }
   }
 
-  set role(value: string | null) {
+  set role(value: Bytes | null) {
     if (value === null) {
       this.unset("role");
     } else {
-      this.set("role", Value.fromString(value as string));
+      this.set("role", Value.fromBytes(value as Bytes));
     }
   }
 
-  get nomorInduk(): string | null {
+  get nomorInduk(): Bytes | null {
     let value = this.get("nomorInduk");
     if (value === null) {
       return null;
     } else {
-      return value.toString();
+      return value.toBytes();
     }
   }
 
-  set nomorInduk(value: string | null) {
+  set nomorInduk(value: Bytes | null) {
     if (value === null) {
       this.unset("nomorInduk");
     } else {
-      this.set("nomorInduk", Value.fromString(value as string));
+      this.set("nomorInduk", Value.fromBytes(value as Bytes));
     }
   }
 
@@ -192,6 +192,215 @@ export class Account extends Entity {
       this.unset("lastUpdated");
     } else {
       this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Mahasiswa extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Mahasiswa entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Mahasiswa entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Mahasiswa", id.toString(), this);
+  }
+
+  static load(id: string): Mahasiswa | null {
+    return store.get("Mahasiswa", id) as Mahasiswa | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nim(): Bytes {
+    let value = this.get("nim");
+    return value.toBytes();
+  }
+
+  set nim(value: Bytes) {
+    this.set("nim", Value.fromBytes(value));
+  }
+
+  get name(): Bytes {
+    let value = this.get("name");
+    return value.toBytes();
+  }
+
+  set name(value: Bytes) {
+    this.set("name", Value.fromBytes(value));
+  }
+
+  get prodi(): Bytes | null {
+    let value = this.get("prodi");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set prodi(value: Bytes | null) {
+    if (value === null) {
+      this.unset("prodi");
+    } else {
+      this.set("prodi", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get isLulus(): boolean {
+    let value = this.get("isLulus");
+    return value.toBoolean();
+  }
+
+  set isLulus(value: boolean) {
+    this.set("isLulus", Value.fromBoolean(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Civitas extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Civitas entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Civitas entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Civitas", id.toString(), this);
+  }
+
+  static load(id: string): Civitas | null {
+    return store.get("Civitas", id) as Civitas | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nip(): Bytes {
+    let value = this.get("nip");
+    return value.toBytes();
+  }
+
+  set nip(value: Bytes) {
+    this.set("nip", Value.fromBytes(value));
+  }
+
+  get name(): Bytes {
+    let value = this.get("name");
+    return value.toBytes();
+  }
+
+  set name(value: Bytes) {
+    this.set("name", Value.fromBytes(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get role(): Bytes | null {
+    let value = this.get("role");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set role(value: Bytes | null) {
+    if (value === null) {
+      this.unset("role");
+    } else {
+      this.set("role", Value.fromBytes(value as Bytes));
     }
   }
 }
