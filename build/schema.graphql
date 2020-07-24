@@ -7,18 +7,17 @@ type Gravatar @entity {
 
 type Account @entity {
   id: ID!
-  address: Bytes!
   verified: Boolean!
   name: Bytes!
   role: Bytes
   nomorInduk: Bytes
   timeCreated: BigInt
   lastUpdated: BigInt
+  isDeleted: Boolean
 }
 
 type Mahasiswa @entity {
   id: ID!
-  nim: Bytes!
   name: Bytes!
   prodi: Bytes
   isLulus: Boolean
@@ -26,9 +25,8 @@ type Mahasiswa @entity {
   lastUpdated: BigInt
 }
 
-type Civitas @entity {
+type Civita @entity {
   id: ID!
-  nip: Bytes!
   name: Bytes!
   timeCreated: BigInt
   lastUpdated: BigInt

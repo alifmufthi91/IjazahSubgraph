@@ -100,15 +100,6 @@ export class Account extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get address(): Bytes {
-    let value = this.get("address");
-    return value.toBytes();
-  }
-
-  set address(value: Bytes) {
-    this.set("address", Value.fromBytes(value));
-  }
-
   get verified(): boolean {
     let value = this.get("verified");
     return value.toBoolean();
@@ -194,6 +185,15 @@ export class Account extends Entity {
       this.set("lastUpdated", Value.fromBigInt(value as BigInt));
     }
   }
+
+  get isDeleted(): boolean {
+    let value = this.get("isDeleted");
+    return value.toBoolean();
+  }
+
+  set isDeleted(value: boolean) {
+    this.set("isDeleted", Value.fromBoolean(value));
+  }
 }
 
 export class Mahasiswa extends Entity {
@@ -224,15 +224,6 @@ export class Mahasiswa extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
-  }
-
-  get nim(): Bytes {
-    let value = this.get("nim");
-    return value.toBytes();
-  }
-
-  set nim(value: Bytes) {
-    this.set("nim", Value.fromBytes(value));
   }
 
   get name(): Bytes {
@@ -305,7 +296,7 @@ export class Mahasiswa extends Entity {
   }
 }
 
-export class Civitas extends Entity {
+export class Civita extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -313,17 +304,17 @@ export class Civitas extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Civitas entity without an ID");
+    assert(id !== null, "Cannot save Civita entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Civitas entity with non-string ID. " +
+      "Cannot save Civita entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Civitas", id.toString(), this);
+    store.set("Civita", id.toString(), this);
   }
 
-  static load(id: string): Civitas | null {
-    return store.get("Civitas", id) as Civitas | null;
+  static load(id: string): Civita | null {
+    return store.get("Civita", id) as Civita | null;
   }
 
   get id(): string {
@@ -333,15 +324,6 @@ export class Civitas extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
-  }
-
-  get nip(): Bytes {
-    let value = this.get("nip");
-    return value.toBytes();
-  }
-
-  set nip(value: Bytes) {
-    this.set("nip", Value.fromBytes(value));
   }
 
   get name(): Bytes {

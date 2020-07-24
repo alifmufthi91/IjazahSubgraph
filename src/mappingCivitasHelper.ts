@@ -1,9 +1,8 @@
 import { MahasiswaCreated, CivitasCreated } from '../generated/CivitasHelper/CivitasHelper'
-import { Civitas, Mahasiswa } from '../generated/schema'
+import { Civita, Mahasiswa } from '../generated/schema'
 
 export function handleNewMahasiswa(event: MahasiswaCreated): void {
   let mahasiswa = new Mahasiswa(event.params.nim.toHex())
-  mahasiswa.nim = event.params.nim
   mahasiswa.name = event.params.fullName
   mahasiswa.prodi = event.params.prodi
   mahasiswa.isLulus = event.params.isLulus
@@ -12,8 +11,7 @@ export function handleNewMahasiswa(event: MahasiswaCreated): void {
 }
 
 export function handleNewCivitas(event: CivitasCreated): void {
-  let civitas = new Civitas(event.params.nip.toHex())
-  civitas.nip = event.params.nip
+  let civitas = new Civita(event.params.nip.toHex())
   civitas.name = event.params.fullName
   civitas.timeCreated = event.params.timeCreated
   civitas.save()

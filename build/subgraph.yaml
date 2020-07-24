@@ -47,6 +47,8 @@ dataSources:
           handler: handleUpdatedAccount
         - event: AccountNameUpdated(address,address,bytes32,bytes32,uint256)
           handler: handleUpdatedNameAccount
+        - event: AccountDeleted(address,address,uint256)
+          handler: handleDeletedAccount
       file: AccountManager\AccountManager.wasm
   - kind: ethereum/contract
     name: CivitasHelper
@@ -59,7 +61,8 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Civitas
+        - Civita
+        - Mahasiswa
       abis:
         - name: CivitasHelper
           file: CivitasHelper\abis\CivitasHelper.json
