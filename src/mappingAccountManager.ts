@@ -8,6 +8,7 @@ export function handleNewAccount(event: AccountCreated): void {
   account.role = event.params.role
   account.nomorInduk = event.params.nomorInduk
   account.timeCreated = event.params.timeCreated
+  account.lastUpdated = event.params.timeCreated
   account.isDeleted = false
   account.save()
 }
@@ -19,7 +20,7 @@ export function handleUpdatedAccount(event: AccountUpdated): void {
     account = new Account(id)
   }
   if (account.nomorInduk.length > 0){
-    let civitas = Civita.load(event.params.nomorInduk.toHex())
+    let civitas = Civita.load(event.params.nomorInduk.toString())
     if(civitas){
       civitas.role = event.params.role
       civitas.save()

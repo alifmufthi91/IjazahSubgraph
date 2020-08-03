@@ -194,6 +194,40 @@ export class Account extends Entity {
   set isDeleted(value: boolean) {
     this.set("isDeleted", Value.fromBoolean(value));
   }
+
+  get linkedMahasiswa(): string | null {
+    let value = this.get("linkedMahasiswa");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set linkedMahasiswa(value: string | null) {
+    if (value === null) {
+      this.unset("linkedMahasiswa");
+    } else {
+      this.set("linkedMahasiswa", Value.fromString(value as string));
+    }
+  }
+
+  get linkedCivitas(): string | null {
+    let value = this.get("linkedCivitas");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set linkedCivitas(value: string | null) {
+    if (value === null) {
+      this.unset("linkedCivitas");
+    } else {
+      this.set("linkedCivitas", Value.fromString(value as string));
+    }
+  }
 }
 
 export class Mahasiswa extends Entity {
@@ -294,6 +328,23 @@ export class Mahasiswa extends Entity {
       this.set("lastUpdated", Value.fromBigInt(value as BigInt));
     }
   }
+
+  get linkedAccount(): string | null {
+    let value = this.get("linkedAccount");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set linkedAccount(value: string | null) {
+    if (value === null) {
+      this.unset("linkedAccount");
+    } else {
+      this.set("linkedAccount", Value.fromString(value as string));
+    }
+  }
 }
 
 export class Civita extends Entity {
@@ -383,6 +434,547 @@ export class Civita extends Entity {
       this.unset("role");
     } else {
       this.set("role", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get linkedAccount(): string | null {
+    let value = this.get("linkedAccount");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set linkedAccount(value: string | null) {
+    if (value === null) {
+      this.unset("linkedAccount");
+    } else {
+      this.set("linkedAccount", Value.fromString(value as string));
+    }
+  }
+}
+
+export class KalendarAkademik extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save KalendarAkademik entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save KalendarAkademik entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("KalendarAkademik", id.toString(), this);
+  }
+
+  static load(id: string): KalendarAkademik | null {
+    return store.get("KalendarAkademik", id) as KalendarAkademik | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get tahunAjar(): Bytes {
+    let value = this.get("tahunAjar");
+    return value.toBytes();
+  }
+
+  set tahunAjar(value: Bytes) {
+    this.set("tahunAjar", Value.fromBytes(value));
+  }
+
+  get ganjil(): boolean {
+    let value = this.get("ganjil");
+    return value.toBoolean();
+  }
+
+  set ganjil(value: boolean) {
+    this.set("ganjil", Value.fromBoolean(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class MataKuliah extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save MataKuliah entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save MataKuliah entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("MataKuliah", id.toString(), this);
+  }
+
+  static load(id: string): MataKuliah | null {
+    return store.get("MataKuliah", id) as MataKuliah | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get namaMatkul(): Bytes {
+    let value = this.get("namaMatkul");
+    return value.toBytes();
+  }
+
+  set namaMatkul(value: Bytes) {
+    this.set("namaMatkul", Value.fromBytes(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Ampu extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Ampu entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Ampu entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Ampu", id.toString(), this);
+  }
+
+  static load(id: string): Ampu | null {
+    return store.get("Ampu", id) as Ampu | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get idDosen(): BigInt | null {
+    let value = this.get("idDosen");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set idDosen(value: BigInt | null) {
+    if (value === null) {
+      this.unset("idDosen");
+    } else {
+      this.set("idDosen", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get idMatkul(): BigInt | null {
+    let value = this.get("idMatkul");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set idMatkul(value: BigInt | null) {
+    if (value === null) {
+      this.unset("idMatkul");
+    } else {
+      this.set("idMatkul", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get namaMatkul(): Bytes | null {
+    let value = this.get("namaMatkul");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set namaMatkul(value: Bytes | null) {
+    if (value === null) {
+      this.unset("namaMatkul");
+    } else {
+      this.set("namaMatkul", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get idSemester(): BigInt | null {
+    let value = this.get("idSemester");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set idSemester(value: BigInt | null) {
+    if (value === null) {
+      this.unset("idSemester");
+    } else {
+      this.set("idSemester", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get prodi(): Bytes | null {
+    let value = this.get("prodi");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set prodi(value: Bytes | null) {
+    if (value === null) {
+      this.unset("prodi");
+    } else {
+      this.set("prodi", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get kelas(): Bytes | null {
+    let value = this.get("kelas");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set kelas(value: Bytes | null) {
+    if (value === null) {
+      this.unset("kelas");
+    } else {
+      this.set("kelas", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Prodi extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Prodi entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Prodi entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Prodi", id.toString(), this);
+  }
+
+  static load(id: string): Prodi | null {
+    return store.get("Prodi", id) as Prodi | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get namaProdi(): Bytes {
+    let value = this.get("namaProdi");
+    return value.toBytes();
+  }
+
+  set namaProdi(value: Bytes) {
+    this.set("namaProdi", Value.fromBytes(value));
+  }
+
+  get namaJurusan(): Bytes {
+    let value = this.get("namaJurusan");
+    return value.toBytes();
+  }
+
+  set namaJurusan(value: Bytes) {
+    this.set("namaJurusan", Value.fromBytes(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Semester extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Semester entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Semester entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Semester", id.toString(), this);
+  }
+
+  static load(id: string): Semester | null {
+    return store.get("Semester", id) as Semester | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get semesterKe(): i32 {
+    let value = this.get("semesterKe");
+    return value.toI32();
+  }
+
+  set semesterKe(value: i32) {
+    this.set("semesterKe", Value.fromI32(value));
+  }
+
+  get prodi(): Bytes | null {
+    let value = this.get("prodi");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set prodi(value: Bytes | null) {
+    if (value === null) {
+      this.unset("prodi");
+    } else {
+      this.set("prodi", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get kelas(): Bytes | null {
+    let value = this.get("kelas");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set kelas(value: Bytes | null) {
+    if (value === null) {
+      this.unset("kelas");
+    } else {
+      this.set("kelas", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get KalendarAkademik(): BigInt | null {
+    let value = this.get("KalendarAkademik");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set KalendarAkademik(value: BigInt | null) {
+    if (value === null) {
+      this.unset("KalendarAkademik");
+    } else {
+      this.set("KalendarAkademik", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get statusPenilaian(): boolean {
+    let value = this.get("statusPenilaian");
+    return value.toBoolean();
+  }
+
+  set statusPenilaian(value: boolean) {
+    this.set("statusPenilaian", Value.fromBoolean(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
     }
   }
 }

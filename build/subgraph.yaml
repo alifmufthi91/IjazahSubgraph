@@ -71,4 +71,63 @@ dataSources:
           handler: handleNewMahasiswa
         - event: CivitasCreated(address,bytes21,bytes32,uint256)
           handler: handleNewCivitas
+        - event: CivitasAccountLinked(address,address,bytes21,uint256)
+          handler: handleCivitasLinked
+        - event: MahasiswaAccountLinked(address,address,bytes12,uint256)
+          handler: handleMahasiswaLinked
+        - event: MahasiswaAccountUnlinked(address,address,uint256)
+          handler: handleMahasiswaUnlinked
+        - event: CivitasAccountUnlinked(address,address,uint256)
+          handler: handleCivitasUnlinked
+        - event: MahasiswaUpdated(address,bytes12,bytes32,bytes,bytes,uint256)
+          handler: handleMahasiswaUpdated
+        - event: CivitasUpdated(address,bytes21,bytes32,bytes,bytes,uint256)
+          handler: handleCivitasUpdated
+        - event: CivitasNIPUpdated(address,bytes21,bytes21,uint256)
+          handler: handleCivitasNIPUpdated
+        - event: MahasiswaNIMUpdated(address,bytes12,bytes12,uint256)
+          handler: handleMahasiswaNIMUpdated
       file: CivitasHelper\CivitasHelper.wasm
+  - kind: ethereum/contract
+    name: AkademikHelper
+    network: rinkeby
+    source:
+      address: "0xa481951a6c28fe45151eb18ba6237b8f18fad11e"
+      abi: AkademikHelper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Semester
+        - Prodi
+        - Ampu
+        - MataKuliah
+        - KalendarAkademik
+      abis:
+        - name: AkademikHelper
+          file: AkademikHelper\abis\AkademikHelper.json
+      eventHandlers:
+        - event: SemesterCreated(address,uint256,uint8,bytes,bytes9,uint256,bool,uint256)
+          handler: handleNewSemester
+        - event: SemesterNilaiStatusChanged(address,uint256,bool,uint256)
+          handler: handleNilaiStatusSemester
+        - event: ProdiCreated(address,uint256,bytes,bytes,uint256)
+          handler: handleNewProdi
+        - event: MengajarCreated(address,uint256,uint256,uint256,bytes,uint256,bytes,bytes9,uint256)
+          handler: handleNewAmpu
+        - event: MatkulCreated(address,uint256,bytes,uint256)
+          handler: handleNewMatakuliah
+        - event: KalendarAkademikCreated(address,uint256,bytes9,bool,uint256)
+          handler: handleNewKalendarAkademik
+        - event: SemesterUpdated(address,uint256,bytes,bytes,uint256)
+          handler: handleSemesterUpdated
+        - event: SemesterNilaiStatusChanged(address,uint256,bool,uint256)
+          handler: handleSemesterNilaiStatusChanged
+        - event: ProdiUpdated(address,uint256,bytes,bytes,bytes,bytes,uint256)
+          handler: handleProdiUpdated
+        - event: MatkulUpdated(address,uint256,bytes,bytes,bytes,uint256)
+          handler: handleMatakuliahUpdated
+        - event: KalendarAkademikTahunAjarUpdated(address,uint256,bytes9,bytes9,uint256)
+          handler: handleKalendarAKademikTahunAjarChanged
+      file: AkademikHelper\AkademikHelper.wasm

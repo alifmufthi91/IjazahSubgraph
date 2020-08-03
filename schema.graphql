@@ -14,6 +14,8 @@ type Account @entity {
   timeCreated: BigInt
   lastUpdated: BigInt
   isDeleted: Boolean
+  linkedMahasiswa: Mahasiswa
+  linkedCivitas: Civita
 }
 
 type Mahasiswa @entity {
@@ -23,6 +25,7 @@ type Mahasiswa @entity {
   isLulus: Boolean
   timeCreated: BigInt
   lastUpdated: BigInt
+  linkedAccount: Account
 }
 
 type Civita @entity {
@@ -31,4 +34,52 @@ type Civita @entity {
   timeCreated: BigInt
   lastUpdated: BigInt
   role:Bytes
+  linkedAccount: Account
 }
+
+type KalendarAkademik @entity {
+  id: ID!
+  tahunAjar: Bytes!
+  ganjil: Boolean!
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
+
+type MataKuliah @entity {
+  id: ID!
+  namaMatkul: Bytes!
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
+
+type Ampu @entity {
+  id: ID!
+  idDosen: BigInt
+  idMatkul: BigInt
+  namaMatkul: Bytes
+  idSemester: BigInt
+  prodi: Bytes
+  kelas: Bytes
+  timeCreated: BigInt
+}
+
+type Prodi @entity {
+  id: ID!
+  namaProdi: Bytes!
+  namaJurusan: Bytes!
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
+
+type Semester @entity {
+  id: ID!
+  semesterKe: Int
+  prodi: Bytes
+  kelas: Bytes
+  KalendarAkademik: BigInt
+  statusPenilaian: Boolean
+  timeCreated: BigInt
+  lastUpdated: BigInt
+}
+
+
