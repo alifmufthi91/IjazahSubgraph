@@ -5,7 +5,7 @@ import { MahasiswaCreated, CivitasCreated, CivitasAccountLinked,
 import { Civita, Mahasiswa, Account } from '../generated/schema'
 
 export function handleNewMahasiswa(event: MahasiswaCreated): void {
-  let mahasiswa = new Mahasiswa(event.params.nim.toString())
+  let mahasiswa = new Mahasiswa(event.params.nim.toHexString())
   mahasiswa.name = event.params.fullName
   mahasiswa.prodi = event.params.prodi
   mahasiswa.isLulus = event.params.isLulus
@@ -15,7 +15,7 @@ export function handleNewMahasiswa(event: MahasiswaCreated): void {
 }
 
 export function handleNewCivitas(event: CivitasCreated): void {
-  let civitas = new Civita(event.params.nip.toString())
+  let civitas = new Civita(event.params.nip.toHexString())
   civitas.name = event.params.fullName
   civitas.timeCreated = event.params.timeCreated
   civitas.lastUpdated = event.params.timeCreated
@@ -23,7 +23,7 @@ export function handleNewCivitas(event: CivitasCreated): void {
 }
 
 export function handleCivitasLinked(event: CivitasAccountLinked): void {
-  let civitas = Civita.load(event.params.nip.toString())
+  let civitas = Civita.load(event.params.nip.toHexString())
   let account = Account.load(event.params.account.toHex())
   if(civitas != null && account != null) {
     civitas.linkedAccount = account.id
@@ -36,7 +36,7 @@ export function handleCivitasLinked(event: CivitasAccountLinked): void {
 }
 
 export function handleMahasiswaLinked(event: MahasiswaAccountLinked): void {
-  let mahasiswa = Mahasiswa.load(event.params.nim.toHex())
+  let mahasiswa = Mahasiswa.load(event.params.nim.toHexString())
   let account = Account.load(event.params.account.toHex())
   if(mahasiswa != null && account != null) {
     mahasiswa.linkedAccount = account.id
@@ -75,9 +75,9 @@ export function handleCivitasUnlinked(event: CivitasAccountUnlinked): void {
 }
 
 export function handleMahasiswaUpdated(event: MahasiswaUpdated): void {
-  let mahasiswa = Mahasiswa.load(event.params.nim.toString())
+  let mahasiswa = Mahasiswa.load(event.params.nim.toHexString())
   if (mahasiswa == null) {
-    mahasiswa = new Mahasiswa(event.params.nim.toString())
+    mahasiswa = new Mahasiswa(event.params.nim.toHexString())
   }
  mahasiswa.name = event.params.fullName
  mahasiswa.lastUpdated = event.params.timeUpdated
@@ -85,9 +85,9 @@ export function handleMahasiswaUpdated(event: MahasiswaUpdated): void {
 }
 
 export function handleCivitasUpdated(event: CivitasUpdated): void {
-  let civitas = Civita.load(event.params.nip.toString())
+  let civitas = Civita.load(event.params.nip.toHexString())
   if (civitas == null) {
-    civitas = new Civita(event.params.nip.toString())
+    civitas = new Civita(event.params.nip.toHexString())
   }
  civitas.name = event.params.fullName
  civitas.lastUpdated = event.params.timeUpdated
@@ -95,18 +95,18 @@ export function handleCivitasUpdated(event: CivitasUpdated): void {
 }
 
 export function handleCivitasNIPUpdated(event: CivitasNIPUpdated): void {
-  let civitas = Civita.load(event.params.oldNIP.toString())
+  let civitas = Civita.load(event.params.oldNIP.toHexString())
   if( civitas != null){
-    civitas.id = event.params.newNIP.toString()
+    civitas.id = event.params.newNIP.toHexString()
     civitas.lastUpdated = event.params.timeUpdated
     civitas.save()
   }
 }
 
 export function handleCahasiswaNIMUpdated(event: MahasiswaNIMUpdated): void {
-  let mahasiswa = Civita.load(event.params.oldNIM.toHex())
+  let mahasiswa = Civita.load(event.params.oldNIM.toHexString())
   if( mahasiswa != null){
-    mahasiswa.id = event.params.newNIM.toHex()
+    mahasiswa.id = event.params.newNIM.toHexString()
     mahasiswa.lastUpdated = event.params.timeUpdated
     mahasiswa.save()
   }

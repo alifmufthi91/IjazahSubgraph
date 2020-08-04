@@ -5,31 +5,10 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Gravity
-    network: rinkeby
-    source:
-      address: '0x5806a66c0029e859884d2b30d15c3c5924564462'
-      abi: Gravity
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Gravatar
-      abis:
-        - name: Gravity
-          file: ./abis/Gravity.json
-      eventHandlers:
-        - event: NewGravatar(uint256,address,string,string)
-          handler: handleNewGravatar
-        - event: UpdatedGravatar(uint256,address,string,string)
-          handler: handleUpdatedGravatar
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
     name: AccountManager
     network: rinkeby
     source:
-      address: '0x45bb90E156DBe6D9eDaddEa3BbA459f417f2a77b'
+      address: '0x04c039a70dff9b22aebb068a5e5b087cf8360c75'
       abi: AccountManager
     mapping:
       kind: ethereum/events
@@ -54,7 +33,7 @@ dataSources:
     name: CivitasHelper
     network: rinkeby
     source:
-      address: '0x85BDd84EF5C38648e855e7e6dee2371286fC2b69'
+      address: '0x0c71fb1ae02aaf2fa124003ac72a1948be6e4317'
       abi: CivitasHelper
     mapping:
       kind: ethereum/events
