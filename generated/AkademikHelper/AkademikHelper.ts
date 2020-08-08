@@ -412,6 +412,26 @@ export class SemesterUpdated__Params {
   }
 }
 
+export class AkademikHelper__getAmpuResult {
+  value0: BigInt;
+  value1: BigInt;
+  value2: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt, value2: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    return map;
+  }
+}
+
 export class AkademikHelper__getKalendarAkademikResult {
   value0: Bytes;
   value1: boolean;
@@ -425,6 +445,23 @@ export class AkademikHelper__getKalendarAkademikResult {
     let map = new TypedMap<string, ethereum.Value>();
     map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
     map.set("value1", ethereum.Value.fromBoolean(this.value1));
+    return map;
+  }
+}
+
+export class AkademikHelper__getMatkulResult {
+  value0: Bytes;
+  value1: Bytes;
+
+  constructor(value0: Bytes, value1: Bytes) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromBytes(this.value0));
+    map.set("value1", ethereum.Value.fromBytes(this.value1));
     return map;
   }
 }
@@ -480,6 +517,62 @@ export class AkademikHelper extends ethereum.SmartContract {
     return new AkademikHelper("AkademikHelper", address);
   }
 
+  activeKalendarAkademik(): BigInt {
+    let result = super.call(
+      "activeKalendarAkademik",
+      "activeKalendarAkademik():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_activeKalendarAkademik(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "activeKalendarAkademik",
+      "activeKalendarAkademik():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getAmpu(id: BigInt): AkademikHelper__getAmpuResult {
+    let result = super.call(
+      "getAmpu",
+      "getAmpu(uint256):(uint256,uint256,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
+    );
+
+    return new AkademikHelper__getAmpuResult(
+      result[0].toBigInt(),
+      result[1].toBigInt(),
+      result[2].toBigInt()
+    );
+  }
+
+  try_getAmpu(id: BigInt): ethereum.CallResult<AkademikHelper__getAmpuResult> {
+    let result = super.tryCall(
+      "getAmpu",
+      "getAmpu(uint256):(uint256,uint256,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new AkademikHelper__getAmpuResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt()
+      )
+    );
+  }
+
   getKalendarAkademik(id: BigInt): AkademikHelper__getKalendarAkademikResult {
     let result = super.call(
       "getKalendarAkademik",
@@ -509,6 +602,37 @@ export class AkademikHelper extends ethereum.SmartContract {
       new AkademikHelper__getKalendarAkademikResult(
         value[0].toBytes(),
         value[1].toBoolean()
+      )
+    );
+  }
+
+  getMatkul(id: BigInt): AkademikHelper__getMatkulResult {
+    let result = super.call("getMatkul", "getMatkul(uint256):(bytes,bytes)", [
+      ethereum.Value.fromUnsignedBigInt(id)
+    ]);
+
+    return new AkademikHelper__getMatkulResult(
+      result[0].toBytes(),
+      result[1].toBytes()
+    );
+  }
+
+  try_getMatkul(
+    id: BigInt
+  ): ethereum.CallResult<AkademikHelper__getMatkulResult> {
+    let result = super.tryCall(
+      "getMatkul",
+      "getMatkul(uint256):(bytes,bytes)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new AkademikHelper__getMatkulResult(
+        value[0].toBytes(),
+        value[1].toBytes()
       )
     );
   }

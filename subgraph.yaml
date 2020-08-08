@@ -33,7 +33,7 @@ dataSources:
     name: CivitasHelper
     network: rinkeby
     source:
-      address: '0x0c71fb1ae02aaf2fa124003ac72a1948be6e4317'
+      address: '0xc5107eeaf7496366f2075c6ae8c18fe2f2bf280a'
       abi: CivitasHelper
     mapping:
       kind: ethereum/events
@@ -42,6 +42,7 @@ dataSources:
       entities:
         - Civita
         - Mahasiswa
+        - Dosen
       abis:
         - name: CivitasHelper
           file: ./abis/CivitasHelper.json
@@ -66,12 +67,16 @@ dataSources:
           handler: handleCivitasNIPUpdated
         - event: MahasiswaNIMUpdated(address,bytes12,bytes12,uint256)
           handler: handleMahasiswaNIMUpdated
+        - event: DosenAdded(address,uint256,bytes21,bytes32,uint256)
+          handler: handleNewDosen
+        - event: DosenStatusChanged(address,uint256,bytes21,bool,uint256)
+          handler: handleDosenStatusChanged
       file: ./src/mappingCivitasHelper.ts
   - kind: ethereum/contract
     name: AkademikHelper
     network: rinkeby
     source:
-      address: '0xa481951a6c28fe45151eb18ba6237b8f18fad11e'
+      address: '0x994aa2dad0f4e6551690c6b02f02c398623223b5'
       abi: AkademikHelper
     mapping:
       kind: ethereum/events

@@ -12,64 +12,6 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class Gravatar extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save Gravatar entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save Gravatar entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("Gravatar", id.toString(), this);
-  }
-
-  static load(id: string): Gravatar | null {
-    return store.get("Gravatar", id) as Gravatar | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get owner(): Bytes {
-    let value = this.get("owner");
-    return value.toBytes();
-  }
-
-  set owner(value: Bytes) {
-    this.set("owner", Value.fromBytes(value));
-  }
-
-  get displayName(): string {
-    let value = this.get("displayName");
-    return value.toString();
-  }
-
-  set displayName(value: string) {
-    this.set("displayName", Value.fromString(value));
-  }
-
-  get imageUrl(): string {
-    let value = this.get("imageUrl");
-    return value.toString();
-  }
-
-  set imageUrl(value: string) {
-    this.set("imageUrl", Value.fromString(value));
-  }
-}
-
 export class Account extends Entity {
   constructor(id: string) {
     super();
@@ -451,6 +393,98 @@ export class Civita extends Entity {
       this.unset("linkedAccount");
     } else {
       this.set("linkedAccount", Value.fromString(value as string));
+    }
+  }
+}
+
+export class Dosen extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Dosen entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Dosen entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Dosen", id.toString(), this);
+  }
+
+  static load(id: string): Dosen | null {
+    return store.get("Dosen", id) as Dosen | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nip(): Bytes {
+    let value = this.get("nip");
+    return value.toBytes();
+  }
+
+  set nip(value: Bytes) {
+    this.set("nip", Value.fromBytes(value));
+  }
+
+  get name(): Bytes {
+    let value = this.get("name");
+    return value.toBytes();
+  }
+
+  set name(value: Bytes) {
+    this.set("name", Value.fromBytes(value));
+  }
+
+  get status(): boolean {
+    let value = this.get("status");
+    return value.toBoolean();
+  }
+
+  set status(value: boolean) {
+    this.set("status", Value.fromBoolean(value));
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
     }
   }
 }

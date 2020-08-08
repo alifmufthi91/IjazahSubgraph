@@ -228,6 +228,40 @@ export class DosenAdded__Params {
   }
 }
 
+export class DosenStatusChanged extends ethereum.Event {
+  get params(): DosenStatusChanged__Params {
+    return new DosenStatusChanged__Params(this);
+  }
+}
+
+export class DosenStatusChanged__Params {
+  _event: DosenStatusChanged;
+
+  constructor(event: DosenStatusChanged) {
+    this._event = event;
+  }
+
+  get sender(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get ID(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get nip(): Bytes {
+    return this._event.parameters[2].value.toBytes();
+  }
+
+  get status(): boolean {
+    return this._event.parameters[3].value.toBoolean();
+  }
+
+  get timeUpdated(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class MahasiswaAccountLinked extends ethereum.Event {
   get params(): MahasiswaAccountLinked__Params {
     return new MahasiswaAccountLinked__Params(this);
@@ -533,6 +567,27 @@ export class CivitasHelper extends ethereum.SmartContract {
       "getNIPCivitas",
       "getNIPCivitas(address):(bytes21)",
       [ethereum.Value.fromAddress(owner)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getNIPDosen(id: BigInt): Bytes {
+    let result = super.call("getNIPDosen", "getNIPDosen(uint256):(bytes21)", [
+      ethereum.Value.fromUnsignedBigInt(id)
+    ]);
+
+    return result[0].toBytes();
+  }
+
+  try_getNIPDosen(id: BigInt): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "getNIPDosen",
+      "getNIPDosen(uint256):(bytes21)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -852,6 +907,40 @@ export class UpdateCivitasDataCall__Outputs {
   _call: UpdateCivitasDataCall;
 
   constructor(call: UpdateCivitasDataCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateDosenStatusCall extends ethereum.Call {
+  get inputs(): UpdateDosenStatusCall__Inputs {
+    return new UpdateDosenStatusCall__Inputs(this);
+  }
+
+  get outputs(): UpdateDosenStatusCall__Outputs {
+    return new UpdateDosenStatusCall__Outputs(this);
+  }
+}
+
+export class UpdateDosenStatusCall__Inputs {
+  _call: UpdateDosenStatusCall;
+
+  constructor(call: UpdateDosenStatusCall) {
+    this._call = call;
+  }
+
+  get id(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get status(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class UpdateDosenStatusCall__Outputs {
+  _call: UpdateDosenStatusCall;
+
+  constructor(call: UpdateDosenStatusCall) {
     this._call = call;
   }
 }

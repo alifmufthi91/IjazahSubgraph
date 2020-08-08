@@ -1,8 +1,8 @@
 import { MahasiswaCreated, CivitasCreated, CivitasAccountLinked, 
     CivitasAccountUnlinked, CivitasNIPUpdated, CivitasUpdated,
     MahasiswaAccountLinked, MahasiswaAccountUnlinked,
-    MahasiswaNIMUpdated, MahasiswaUpdated } from '../generated/CivitasHelper/CivitasHelper'
-import { Civita, Mahasiswa, Account } from '../generated/schema'
+    MahasiswaNIMUpdated, MahasiswaUpdated, DosenAdded, DosenStatusChanged } from '../generated/CivitasHelper/CivitasHelper'
+import { Civita, Mahasiswa, Account, Dosen } from '../generated/schema'
 
 export function handleNewMahasiswa(event: MahasiswaCreated): void {
   let mahasiswa = new Mahasiswa(event.params.nim.toHexString())
@@ -20,6 +20,26 @@ export function handleNewCivitas(event: CivitasCreated): void {
   civitas.timeCreated = event.params.timeCreated
   civitas.lastUpdated = event.params.timeCreated
   civitas.save()
+}
+
+export function handleNewDosen(event: DosenAdded): void {
+  let dosen = new Dosen(event.params.ID.toString())
+  dosen.name = event.params.fullName
+  dosen.nip = event.params.nip
+  dosen.status = true
+  dosen.timeCreated = event.params.timeAdded
+  dosen.lastUpdated = event.params.timeAdded
+  dosen.save()
+}
+
+export function handleDosenStatusChanged(event: DosenStatusChanged): void {
+  let dosen = Dosen.load(event.params.ID.toString())
+  if (dosen == null){
+    dosen = new Dosen(event.params.ID.toString())
+  }
+  dosen.status = event.params.status
+  dosen.lastUpdated = event.params.timeUpdated
+  dosen.save()
 }
 
 export function handleCivitasLinked(event: CivitasAccountLinked): void {

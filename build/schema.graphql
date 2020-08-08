@@ -1,9 +1,3 @@
-type Gravatar @entity {
-  id: ID!
-  owner: Bytes!
-  displayName: String!
-  imageUrl: String!
-}
 
 type Account @entity {
   id: ID!
@@ -35,6 +29,15 @@ type Civita @entity {
   lastUpdated: BigInt
   role:Bytes
   linkedAccount: Account
+}
+
+type Dosen @entity {
+  id: ID!
+  nip: Bytes!
+  name: Bytes!
+  status: Boolean!
+  timeCreated: BigInt
+  lastUpdated: BigInt
 }
 
 type KalendarAkademik @entity {
