@@ -463,6 +463,25 @@ export class CivitasHelper extends ethereum.SmartContract {
     return new CivitasHelper("CivitasHelper", address);
   }
 
+  dosenAktif(param0: BigInt): boolean {
+    let result = super.call("dosenAktif", "dosenAktif(uint256):(bool)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_dosenAktif(param0: BigInt): ethereum.CallResult<boolean> {
+    let result = super.tryCall("dosenAktif", "dosenAktif(uint256):(bool)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   getCivitas(NIP: Bytes): CivitasHelper__getCivitasResult {
     let result = super.call(
       "getCivitas",
@@ -594,6 +613,52 @@ export class CivitasHelper extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  isCivitasExist(param0: Bytes): boolean {
+    let result = super.call(
+      "isCivitasExist",
+      "isCivitasExist(bytes21):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isCivitasExist(param0: Bytes): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isCivitasExist",
+      "isCivitasExist(bytes21):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isMahasiswaExist(param0: Bytes): boolean {
+    let result = super.call(
+      "isMahasiswaExist",
+      "isMahasiswaExist(bytes12):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isMahasiswaExist(param0: Bytes): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isMahasiswaExist",
+      "isMahasiswaExist(bytes12):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 }
 
@@ -734,10 +799,6 @@ export class LinkCivitasAccountCall__Inputs {
 
   get _nip(): Bytes {
     return this._call.inputValues[1].value.toBytes();
-  }
-
-  get _role(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
   }
 }
 

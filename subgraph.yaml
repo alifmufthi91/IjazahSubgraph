@@ -33,7 +33,7 @@ dataSources:
     name: CivitasHelper
     network: rinkeby
     source:
-      address: '0xc5107eeaf7496366f2075c6ae8c18fe2f2bf280a'
+      address: '0x6bbfa1d7b8784235ba227f3dee3610019f26742a'
       abi: CivitasHelper
     mapping:
       kind: ethereum/events

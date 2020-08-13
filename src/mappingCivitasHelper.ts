@@ -48,6 +48,7 @@ export function handleCivitasLinked(event: CivitasAccountLinked): void {
   if(civitas != null && account != null) {
     civitas.linkedAccount = account.id
     account.linkedCivitas = civitas.id
+    civitas.role = account.role
     account.lastUpdated = event.params.timeLinked
     civitas.lastUpdated = event.params.timeLinked
     civitas.save()

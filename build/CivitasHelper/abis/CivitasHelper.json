@@ -343,11 +343,6 @@
         "internalType": "bytes21",
         "name": "_nip",
         "type": "bytes21"
-      },
-      {
-        "internalType": "bytes9",
-        "name": "_role",
-        "type": "bytes9"
       }
     ],
     "name": "linkCivitasAccount",
@@ -688,6 +683,25 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "dosenAktif",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes21",
         "name": "NIP",
         "type": "bytes21"
@@ -785,6 +799,44 @@
         "internalType": "bytes21",
         "name": "",
         "type": "bytes21"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes21",
+        "name": "",
+        "type": "bytes21"
+      }
+    ],
+    "name": "isCivitasExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes12",
+        "name": "",
+        "type": "bytes12"
+      }
+    ],
+    "name": "isMahasiswaExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
