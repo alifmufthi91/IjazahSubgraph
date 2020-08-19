@@ -8,7 +8,7 @@ dataSources:
     name: AccountManager
     network: rinkeby
     source:
-      address: '0x04c039a70dff9b22aebb068a5e5b087cf8360c75'
+      address: '0xc368b9d0149aaa666ab2e1d533ca4b8f5394b4f3'
       abi: AccountManager
     mapping:
       kind: ethereum/events
@@ -33,7 +33,7 @@ dataSources:
     name: CivitasHelper
     network: rinkeby
     source:
-      address: '0x6bbfa1d7b8784235ba227f3dee3610019f26742a'
+      address: '0x493b3d16d39f4bf4e0fb9b190d0c40b5edc78b1a'
       abi: CivitasHelper
     mapping:
       kind: ethereum/events
@@ -76,7 +76,7 @@ dataSources:
     name: AkademikHelper
     network: rinkeby
     source:
-      address: '0x994aa2dad0f4e6551690c6b02f02c398623223b5'
+      address: '0x5d658f5ad22cf59d582fd288096ead47f660fc89'
       abi: AkademikHelper
     mapping:
       kind: ethereum/events

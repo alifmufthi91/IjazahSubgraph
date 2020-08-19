@@ -42,108 +42,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes9",
-        "name": "_tahunAjar",
-        "type": "bytes9"
-      },
-      {
-        "internalType": "bool",
-        "name": "_ganjil",
-        "type": "bool"
-      }
-    ],
-    "name": "createKalendarAkademik",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "_namaMatkul",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_ipfsHash",
-        "type": "bytes"
-      }
-    ],
-    "name": "createMatkul",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "_namaProdi",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_namaJurusan",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_ipfsHash",
-        "type": "bytes"
-      }
-    ],
-    "name": "createProdi",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint8",
-        "name": "_semesterKe",
-        "type": "uint8"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_ipfsHash",
-        "type": "bytes"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_listIdDosen",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_listMatkul",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint8[]",
-        "name": "_listSKS",
-        "type": "uint8[]"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_prodi",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes9",
-        "name": "_kelas",
-        "type": "bytes9"
-      }
-    ],
-    "name": "createSemester",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -562,137 +460,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      }
-    ],
-    "name": "setKalendarActive",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_semesterId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_status",
-        "type": "bool"
-      }
-    ],
-    "name": "ubahStatusNilaiSemester",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newAddress",
-        "type": "address"
-      }
-    ],
-    "name": "updateAccountManager",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_matkulId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_newIpfsHash",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_namaMatkul",
-        "type": "bytes"
-      }
-    ],
-    "name": "updateMatkulData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_prodiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_newIpfsHash",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_namaProdi",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_namaJurusan",
-        "type": "bytes"
-      }
-    ],
-    "name": "updateProdiData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_semesterId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_newIpfsHash",
-        "type": "bytes"
-      }
-    ],
-    "name": "updateSemesterData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes9",
-        "name": "_tahunAjar",
-        "type": "bytes9"
-      }
-    ],
-    "name": "updateTahunAjarKalendar",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "activeKalendarAkademik",
     "outputs": [
@@ -703,6 +470,108 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes9",
+        "name": "_tahunAjar",
+        "type": "bytes9"
+      },
+      {
+        "internalType": "bool",
+        "name": "_ganjil",
+        "type": "bool"
+      }
+    ],
+    "name": "createKalendarAkademik",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "_namaMatkul",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_ipfsHash",
+        "type": "bytes"
+      }
+    ],
+    "name": "createMatkul",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "_namaProdi",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_namaJurusan",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_ipfsHash",
+        "type": "bytes"
+      }
+    ],
+    "name": "createProdi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_semesterKe",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_ipfsHash",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_listIdDosen",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_listMatkul",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_listSKS",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_prodi",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes9",
+        "name": "_kelas",
+        "type": "bytes9"
+      }
+    ],
+    "name": "createSemester",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -843,6 +712,30 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "idAmpu",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "idDosen",
+        "type": "uint256"
+      }
+    ],
+    "name": "isDosenPengampu",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes9",
         "name": "_tahunAjar",
         "type": "bytes9"
@@ -862,6 +755,156 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "isStatusSemesterOpen",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "setKalendarActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_semesterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_status",
+        "type": "bool"
+      }
+    ],
+    "name": "ubahStatusNilaiSemester",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newAddress",
+        "type": "address"
+      }
+    ],
+    "name": "updateAccountManager",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_matkulId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_newIpfsHash",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_namaMatkul",
+        "type": "bytes"
+      }
+    ],
+    "name": "updateMatkulData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_prodiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_newIpfsHash",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_namaProdi",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_namaJurusan",
+        "type": "bytes"
+      }
+    ],
+    "name": "updateProdiData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_semesterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_newIpfsHash",
+        "type": "bytes"
+      }
+    ],
+    "name": "updateSemesterData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes9",
+        "name": "_tahunAjar",
+        "type": "bytes9"
+      }
+    ],
+    "name": "updateTahunAjarKalendar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
