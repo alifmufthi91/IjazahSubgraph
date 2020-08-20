@@ -94,8 +94,6 @@ dataSources:
       eventHandlers:
         - event: SemesterCreated(address,uint256,uint8,bytes,bytes9,uint256,bool,uint256)
           handler: handleNewSemester
-        - event: SemesterNilaiStatusChanged(address,uint256,bool,uint256)
-          handler: handleNilaiStatusSemester
         - event: ProdiCreated(address,uint256,bytes,bytes,uint256)
           handler: handleNewProdi
         - event: MengajarCreated(address,uint256,uint256,uint256,bytes,uint256,bytes,bytes9,uint256)
@@ -115,3 +113,41 @@ dataSources:
         - event: KalendarAkademikTahunAjarUpdated(address,uint256,bytes9,bytes9,uint256)
           handler: handleKalendarAKademikTahunAjarChanged
       file: ./src/mappingAkademikHelper.ts
+  - kind: ethereum/contract
+    name: SertifikatHelper
+    network: rinkeby
+    source:
+      address: '0xd8a0f29096c484b7e68592b677f18a6df9b996b0'
+      abi: SertifikatHelper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sertifikat
+        - Signature
+        - RiwayatStudi
+        - Mahasiswa
+      abis:
+        - name: SertifikatHelper
+          file: ./abis/SertifikatHelper.json
+      eventHandlers:
+        - event: CertificateCreated(address,address,uint256,bytes12,bytes16,uint8,uint8,uint256)
+          handler: handleNewCertificate
+        - event: CertificateUpdated(address,address,uint256,bytes,bytes,bool,uint256)
+          handler: handleCertificateUpdated
+        - event: CertificateSigned(address,uint256,bytes9,uint8,uint256)
+          handler: handleCertificateSigned
+        - event: CertificateSignedByOwner(address,uint256,uint256)
+          handler: handleCertificateSignedByOwner
+        - event: AssignSignerToCertificate(address,uint256,address,bytes9,uint256)
+          handler: handleNewSignature
+        - event: RiwayatCreated(address,uint256,bytes12,uint256,bytes2,uint256)
+          handler: handleNewRiwayatStudi
+        - event: RiwayatUpdated(address,uint256,bytes2,bytes2,uint256)
+          handler: handleRiwayatStudiUpdated
+        - event: CertificatePublished(address,uint256,uint256)
+          handler: handleCertificatePublished
+        - event: IjazahDinomorkan(address,uint256,bytes17,uint256)
+          handler: handleCertificateNomorIjazah
+      file: ./src/mappingSertifikatHelper.ts

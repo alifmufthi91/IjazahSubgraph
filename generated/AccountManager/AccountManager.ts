@@ -614,6 +614,25 @@ export class AccountManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isRegistered(param0: Address): boolean {
+    let result = super.call("isRegistered", "isRegistered(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isRegistered(param0: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isRegistered", "isRegistered(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   owner(): Address {
     let result = super.call("owner", "owner():(address)", []);
 
@@ -627,6 +646,29 @@ export class AccountManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  roleToBytes32(param0: Bytes): Bytes {
+    let result = super.call(
+      "roleToBytes32",
+      "roleToBytes32(bytes9):(bytes32)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_roleToBytes32(param0: Bytes): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "roleToBytes32",
+      "roleToBytes32(bytes9):(bytes32)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   verifyCivitas(

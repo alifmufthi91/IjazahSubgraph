@@ -356,6 +356,36 @@ export class MahasiswaCreated__Params {
   }
 }
 
+export class MahasiswaLulusUpdated extends ethereum.Event {
+  get params(): MahasiswaLulusUpdated__Params {
+    return new MahasiswaLulusUpdated__Params(this);
+  }
+}
+
+export class MahasiswaLulusUpdated__Params {
+  _event: MahasiswaLulusUpdated;
+
+  constructor(event: MahasiswaLulusUpdated) {
+    this._event = event;
+  }
+
+  get sender(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get nim(): Bytes {
+    return this._event.parameters[1].value.toBytes();
+  }
+
+  get isLulus(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+
+  get timeUpdated(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
 export class MahasiswaNIMUpdated extends ethereum.Event {
   get params(): MahasiswaNIMUpdated__Params {
     return new MahasiswaNIMUpdated__Params(this);
@@ -709,19 +739,19 @@ export class CreateCivitasCall__Inputs {
     this._call = call;
   }
 
-  get _nip(): Bytes {
+  get nip(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _fullName(): Bytes {
+  get fullName(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 
-  get _ipfsHash(): Bytes {
+  get ipfsHash(): Bytes {
     return this._call.inputValues[2].value.toBytes();
   }
 
-  get _isDosen(): boolean {
+  get isDosen(): boolean {
     return this._call.inputValues[3].value.toBoolean();
   }
 }
@@ -751,19 +781,19 @@ export class CreateMahasiswaCall__Inputs {
     this._call = call;
   }
 
-  get _nim(): Bytes {
+  get nim(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _fullName(): Bytes {
+  get fullName(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 
-  get _ipfsHash(): Bytes {
+  get ipfsHash(): Bytes {
     return this._call.inputValues[2].value.toBytes();
   }
 
-  get _prodi(): Bytes {
+  get prodi(): Bytes {
     return this._call.inputValues[3].value.toBytes();
   }
 }
@@ -793,11 +823,11 @@ export class LinkCivitasAccountCall__Inputs {
     this._call = call;
   }
 
-  get _address(): Address {
+  get owner(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _nip(): Bytes {
+  get nip(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 }
@@ -827,11 +857,11 @@ export class LinkMahasiswaAccountCall__Inputs {
     this._call = call;
   }
 
-  get _address(): Address {
+  get owner(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _nim(): Bytes {
+  get nim(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 }
@@ -840,6 +870,40 @@ export class LinkMahasiswaAccountCall__Outputs {
   _call: LinkMahasiswaAccountCall;
 
   constructor(call: LinkMahasiswaAccountCall) {
+    this._call = call;
+  }
+}
+
+export class SetMahasiswaLulusCall extends ethereum.Call {
+  get inputs(): SetMahasiswaLulusCall__Inputs {
+    return new SetMahasiswaLulusCall__Inputs(this);
+  }
+
+  get outputs(): SetMahasiswaLulusCall__Outputs {
+    return new SetMahasiswaLulusCall__Outputs(this);
+  }
+}
+
+export class SetMahasiswaLulusCall__Inputs {
+  _call: SetMahasiswaLulusCall;
+
+  constructor(call: SetMahasiswaLulusCall) {
+    this._call = call;
+  }
+
+  get NIM(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get statusLulus(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class SetMahasiswaLulusCall__Outputs {
+  _call: SetMahasiswaLulusCall;
+
+  constructor(call: SetMahasiswaLulusCall) {
     this._call = call;
   }
 }
@@ -951,15 +1015,15 @@ export class UpdateCivitasDataCall__Inputs {
     this._call = call;
   }
 
-  get _nip(): Bytes {
+  get nip(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _fullName(): Bytes {
+  get fullName(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 
-  get _newIpfsHash(): Bytes {
+  get newIpfsHash(): Bytes {
     return this._call.inputValues[2].value.toBytes();
   }
 }
@@ -1023,15 +1087,15 @@ export class UpdateMahasiswaDataCall__Inputs {
     this._call = call;
   }
 
-  get _nim(): Bytes {
+  get nim(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _fullName(): Bytes {
+  get fullName(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 
-  get _newIpfsHash(): Bytes {
+  get newIpfsHash(): Bytes {
     return this._call.inputValues[2].value.toBytes();
   }
 }
@@ -1061,11 +1125,11 @@ export class UpdateNIMMahasiswaCall__Inputs {
     this._call = call;
   }
 
-  get _oldNIM(): Bytes {
+  get oldNIM(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _newNIM(): Bytes {
+  get newNIM(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 }
@@ -1095,11 +1159,11 @@ export class UpdateNIPCivitasCall__Inputs {
     this._call = call;
   }
 
-  get _oldNIP(): Bytes {
+  get oldNIP(): Bytes {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _newNIP(): Bytes {
+  get newNIP(): Bytes {
     return this._call.inputValues[1].value.toBytes();
   }
 }

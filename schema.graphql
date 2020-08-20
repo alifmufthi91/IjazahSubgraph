@@ -20,6 +20,8 @@ type Mahasiswa @entity {
   timeCreated: BigInt
   lastUpdated: BigInt
   linkedAccount: Account
+  isAssignedNINA: Boolean
+  isUpdatedNINAData: Boolean
 }
 
 type Civita @entity {
@@ -85,4 +87,39 @@ type Semester @entity {
   lastUpdated: BigInt
 }
 
+type Sertifikat @entity{
+  id: ID!
+  owner: Bytes!
+  ownerNIM: Bytes!
+  jenis: Bytes
+  signedTimes: Int
+  signRequired: Int
+  isPublished: Boolean
+  isSignedByOwner: Boolean
+  timeSignedOwner: BigInt
+  isIjazah: Boolean
+  nomorIjazah: Bytes
+  timeCreated: BigInt
+  lastUpdated: BigInt
+  signatures: [Signature!]
+}
+
+type RiwayatStudi @entity{
+  id: ID!
+  nim: Bytes
+  ampu: Ampu
+  nilai: Bytes
+  timeCreated: BigInt
+  timeUpdated: BigInt
+}
+
+type Signature @entity {
+  id: ID!
+  idCertificate: BigInt
+  isOwnerSignature: Boolean
+  signer: Bytes
+  role: Bytes
+  timeAssigned: BigInt
+  timeSigned: BigInt
+}
 

@@ -705,6 +705,38 @@ export class AkademikHelper extends ethereum.SmartContract {
     );
   }
 
+  isDosenPengampu(idAmpu: BigInt, idDosen: BigInt): boolean {
+    let result = super.call(
+      "isDosenPengampu",
+      "isDosenPengampu(uint256,uint256):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(idAmpu),
+        ethereum.Value.fromUnsignedBigInt(idDosen)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isDosenPengampu(
+    idAmpu: BigInt,
+    idDosen: BigInt
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isDosenPengampu",
+      "isDosenPengampu(uint256,uint256):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(idAmpu),
+        ethereum.Value.fromUnsignedBigInt(idDosen)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   isKalendarAkademikExist(_tahunAjar: Bytes, _ganjil: boolean): boolean {
     let result = super.call(
       "isKalendarAkademikExist",
@@ -729,6 +761,29 @@ export class AkademikHelper extends ethereum.SmartContract {
         ethereum.Value.fromFixedBytes(_tahunAjar),
         ethereum.Value.fromBoolean(_ganjil)
       ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isStatusSemesterOpen(id: BigInt): boolean {
+    let result = super.call(
+      "isStatusSemesterOpen",
+      "isStatusSemesterOpen(uint256):(bool)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isStatusSemesterOpen(id: BigInt): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isStatusSemesterOpen",
+      "isStatusSemesterOpen(uint256):(bool)",
+      [ethereum.Value.fromUnsignedBigInt(id)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();

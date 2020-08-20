@@ -287,6 +287,24 @@ export class Mahasiswa extends Entity {
       this.set("linkedAccount", Value.fromString(value as string));
     }
   }
+
+  get isAssignedNINA(): boolean {
+    let value = this.get("isAssignedNINA");
+    return value.toBoolean();
+  }
+
+  set isAssignedNINA(value: boolean) {
+    this.set("isAssignedNINA", Value.fromBoolean(value));
+  }
+
+  get isUpdatedNINAData(): boolean {
+    let value = this.get("isUpdatedNINAData");
+    return value.toBoolean();
+  }
+
+  set isUpdatedNINAData(value: boolean) {
+    this.set("isUpdatedNINAData", Value.fromBoolean(value));
+  }
 }
 
 export class Civita extends Entity {
@@ -1009,6 +1027,443 @@ export class Semester extends Entity {
       this.unset("lastUpdated");
     } else {
       this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Sertifikat extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Sertifikat entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Sertifikat entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Sertifikat", id.toString(), this);
+  }
+
+  static load(id: string): Sertifikat | null {
+    return store.get("Sertifikat", id) as Sertifikat | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get ownerNIM(): Bytes {
+    let value = this.get("ownerNIM");
+    return value.toBytes();
+  }
+
+  set ownerNIM(value: Bytes) {
+    this.set("ownerNIM", Value.fromBytes(value));
+  }
+
+  get jenis(): Bytes | null {
+    let value = this.get("jenis");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set jenis(value: Bytes | null) {
+    if (value === null) {
+      this.unset("jenis");
+    } else {
+      this.set("jenis", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get signedTimes(): i32 {
+    let value = this.get("signedTimes");
+    return value.toI32();
+  }
+
+  set signedTimes(value: i32) {
+    this.set("signedTimes", Value.fromI32(value));
+  }
+
+  get signRequired(): i32 {
+    let value = this.get("signRequired");
+    return value.toI32();
+  }
+
+  set signRequired(value: i32) {
+    this.set("signRequired", Value.fromI32(value));
+  }
+
+  get isPublished(): boolean {
+    let value = this.get("isPublished");
+    return value.toBoolean();
+  }
+
+  set isPublished(value: boolean) {
+    this.set("isPublished", Value.fromBoolean(value));
+  }
+
+  get isSignedByOwner(): boolean {
+    let value = this.get("isSignedByOwner");
+    return value.toBoolean();
+  }
+
+  set isSignedByOwner(value: boolean) {
+    this.set("isSignedByOwner", Value.fromBoolean(value));
+  }
+
+  get timeSignedOwner(): BigInt | null {
+    let value = this.get("timeSignedOwner");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeSignedOwner(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeSignedOwner");
+    } else {
+      this.set("timeSignedOwner", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get isIjazah(): boolean {
+    let value = this.get("isIjazah");
+    return value.toBoolean();
+  }
+
+  set isIjazah(value: boolean) {
+    this.set("isIjazah", Value.fromBoolean(value));
+  }
+
+  get nomorIjazah(): Bytes | null {
+    let value = this.get("nomorIjazah");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nomorIjazah(value: Bytes | null) {
+    if (value === null) {
+      this.unset("nomorIjazah");
+    } else {
+      this.set("nomorIjazah", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastUpdated(): BigInt | null {
+    let value = this.get("lastUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastUpdated");
+    } else {
+      this.set("lastUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get signatures(): Array<string> | null {
+    let value = this.get("signatures");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set signatures(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("signatures");
+    } else {
+      this.set("signatures", Value.fromStringArray(value as Array<string>));
+    }
+  }
+}
+
+export class RiwayatStudi extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save RiwayatStudi entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save RiwayatStudi entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("RiwayatStudi", id.toString(), this);
+  }
+
+  static load(id: string): RiwayatStudi | null {
+    return store.get("RiwayatStudi", id) as RiwayatStudi | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nim(): Bytes | null {
+    let value = this.get("nim");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nim(value: Bytes | null) {
+    if (value === null) {
+      this.unset("nim");
+    } else {
+      this.set("nim", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get ampu(): string | null {
+    let value = this.get("ampu");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set ampu(value: string | null) {
+    if (value === null) {
+      this.unset("ampu");
+    } else {
+      this.set("ampu", Value.fromString(value as string));
+    }
+  }
+
+  get nilai(): Bytes | null {
+    let value = this.get("nilai");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nilai(value: Bytes | null) {
+    if (value === null) {
+      this.unset("nilai");
+    } else {
+      this.set("nilai", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get timeCreated(): BigInt | null {
+    let value = this.get("timeCreated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeCreated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeCreated");
+    } else {
+      this.set("timeCreated", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get timeUpdated(): BigInt | null {
+    let value = this.get("timeUpdated");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeUpdated(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeUpdated");
+    } else {
+      this.set("timeUpdated", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class Signature extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Signature entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Signature entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Signature", id.toString(), this);
+  }
+
+  static load(id: string): Signature | null {
+    return store.get("Signature", id) as Signature | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get idCertificate(): BigInt | null {
+    let value = this.get("idCertificate");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set idCertificate(value: BigInt | null) {
+    if (value === null) {
+      this.unset("idCertificate");
+    } else {
+      this.set("idCertificate", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get isOwnerSignature(): boolean {
+    let value = this.get("isOwnerSignature");
+    return value.toBoolean();
+  }
+
+  set isOwnerSignature(value: boolean) {
+    this.set("isOwnerSignature", Value.fromBoolean(value));
+  }
+
+  get signer(): Bytes | null {
+    let value = this.get("signer");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set signer(value: Bytes | null) {
+    if (value === null) {
+      this.unset("signer");
+    } else {
+      this.set("signer", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get role(): Bytes | null {
+    let value = this.get("role");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set role(value: Bytes | null) {
+    if (value === null) {
+      this.unset("role");
+    } else {
+      this.set("role", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get timeAssigned(): BigInt | null {
+    let value = this.get("timeAssigned");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeAssigned(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeAssigned");
+    } else {
+      this.set("timeAssigned", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get timeSigned(): BigInt | null {
+    let value = this.get("timeSigned");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set timeSigned(value: BigInt | null) {
+    if (value === null) {
+      this.unset("timeSigned");
+    } else {
+      this.set("timeSigned", Value.fromBigInt(value as BigInt));
     }
   }
 }
