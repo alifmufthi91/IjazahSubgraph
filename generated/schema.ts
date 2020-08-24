@@ -694,38 +694,22 @@ export class Ampu extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get idDosen(): BigInt | null {
-    let value = this.get("idDosen");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
+  get dosen(): string {
+    let value = this.get("dosen");
+    return value.toString();
   }
 
-  set idDosen(value: BigInt | null) {
-    if (value === null) {
-      this.unset("idDosen");
-    } else {
-      this.set("idDosen", Value.fromBigInt(value as BigInt));
-    }
+  set dosen(value: string) {
+    this.set("dosen", Value.fromString(value));
   }
 
-  get idMatkul(): BigInt | null {
-    let value = this.get("idMatkul");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
+  get matkul(): string {
+    let value = this.get("matkul");
+    return value.toString();
   }
 
-  set idMatkul(value: BigInt | null) {
-    if (value === null) {
-      this.unset("idMatkul");
-    } else {
-      this.set("idMatkul", Value.fromBigInt(value as BigInt));
-    }
+  set matkul(value: string) {
+    this.set("matkul", Value.fromString(value));
   }
 
   get namaMatkul(): Bytes | null {
@@ -745,21 +729,22 @@ export class Ampu extends Entity {
     }
   }
 
-  get idSemester(): BigInt | null {
-    let value = this.get("idSemester");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
+  get semester(): string {
+    let value = this.get("semester");
+    return value.toString();
   }
 
-  set idSemester(value: BigInt | null) {
-    if (value === null) {
-      this.unset("idSemester");
-    } else {
-      this.set("idSemester", Value.fromBigInt(value as BigInt));
-    }
+  set semester(value: string) {
+    this.set("semester", Value.fromString(value));
+  }
+
+  get kalendar(): string {
+    let value = this.get("kalendar");
+    return value.toString();
+  }
+
+  set kalendar(value: string) {
+    this.set("kalendar", Value.fromString(value));
   }
 
   get prodi(): Bytes | null {
@@ -1209,21 +1194,13 @@ export class Sertifikat extends Entity {
     }
   }
 
-  get signatures(): Array<string> | null {
+  get signatures(): Array<string> {
     let value = this.get("signatures");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
+    return value.toStringArray();
   }
 
-  set signatures(value: Array<string> | null) {
-    if (value === null) {
-      this.unset("signatures");
-    } else {
-      this.set("signatures", Value.fromStringArray(value as Array<string>));
-    }
+  set signatures(value: Array<string>) {
+    this.set("signatures", Value.fromStringArray(value));
   }
 }
 
@@ -1387,6 +1364,23 @@ export class Signature extends Entity {
       this.unset("idCertificate");
     } else {
       this.set("idCertificate", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get certificate(): string | null {
+    let value = this.get("certificate");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set certificate(value: string | null) {
+    if (value === null) {
+      this.unset("certificate");
+    } else {
+      this.set("certificate", Value.fromString(value as string));
     }
   }
 

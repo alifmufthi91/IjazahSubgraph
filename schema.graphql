@@ -59,10 +59,11 @@ type MataKuliah @entity {
 
 type Ampu @entity {
   id: ID!
-  idDosen: BigInt
-  idMatkul: BigInt
+  dosen: Dosen!
+  matkul: MataKuliah!
   namaMatkul: Bytes
-  idSemester: BigInt
+  semester: Semester!
+  kalendar: KalendarAkademik!
   prodi: Bytes
   kelas: Bytes
   timeCreated: BigInt
@@ -101,7 +102,7 @@ type Sertifikat @entity{
   nomorIjazah: Bytes
   timeCreated: BigInt
   lastUpdated: BigInt
-  signatures: [Signature!]
+  signatures: [Signature!]! @derivedFrom(field: "certificate")
 }
 
 type RiwayatStudi @entity{
@@ -116,6 +117,7 @@ type RiwayatStudi @entity{
 type Signature @entity {
   id: ID!
   idCertificate: BigInt
+  certificate: Sertifikat
   isOwnerSignature: Boolean
   signer: Bytes
   role: Bytes

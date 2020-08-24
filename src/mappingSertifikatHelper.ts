@@ -38,10 +38,8 @@ export function handleCertificateSigned(event: CertificateSigned): void {
     sertifikat.signedTimes = event.params.signedTimes
     let signature = Signature.load(event.params.ID.toHex()+'-'+event.params.signer.toHex())
     signature.timeSigned = event.params.timeSigned
-    sertifikat.lastUpdated = event.params.timeSigned
-    sertifikat.signatures.push(signature.id)
-    sertifikat.save()
     signature.save()
+    sertifikat.save()
 }
 
 export function handleCertificateSignedByOwner(event: CertificateSignedByOwner): void {
@@ -58,6 +56,7 @@ export function handleNewSignature(event: AssignSignerToCertificate): void {
     signature.idCertificate = event.params.idCertificate
     signature.role = event.params.role
     signature.timeAssigned = event.params.timeAssigned
+    signature.certificate = event.params.idCertificate.toString()
     signature.save()
 }
 

@@ -612,6 +612,29 @@ export class SertifikatHelper extends ethereum.SmartContract {
     );
   }
 
+  getNomorIjazah(certificateId: BigInt): Bytes {
+    let result = super.call(
+      "getNomorIjazah",
+      "getNomorIjazah(uint256):(bytes17)",
+      [ethereum.Value.fromUnsignedBigInt(certificateId)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_getNomorIjazah(certificateId: BigInt): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "getNomorIjazah",
+      "getNomorIjazah(uint256):(bytes17)",
+      [ethereum.Value.fromUnsignedBigInt(certificateId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   getPublishedCertificate(
     ipfsHash: Bytes
   ): SertifikatHelper__getPublishedCertificateResult {
@@ -848,44 +871,6 @@ export class SertifikatHelper extends ethereum.SmartContract {
   }
 }
 
-export class AssignSignerCall extends ethereum.Call {
-  get inputs(): AssignSignerCall__Inputs {
-    return new AssignSignerCall__Inputs(this);
-  }
-
-  get outputs(): AssignSignerCall__Outputs {
-    return new AssignSignerCall__Outputs(this);
-  }
-}
-
-export class AssignSignerCall__Inputs {
-  _call: AssignSignerCall;
-
-  constructor(call: AssignSignerCall) {
-    this._call = call;
-  }
-
-  get idCertificate(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get assignedSigner(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get role(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-}
-
-export class AssignSignerCall__Outputs {
-  _call: AssignSignerCall;
-
-  constructor(call: AssignSignerCall) {
-    this._call = call;
-  }
-}
-
 export class ConstructorCall extends ethereum.Call {
   get inputs(): ConstructorCall__Inputs {
     return new ConstructorCall__Inputs(this);
@@ -920,6 +905,44 @@ export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class AssignSignerCall extends ethereum.Call {
+  get inputs(): AssignSignerCall__Inputs {
+    return new AssignSignerCall__Inputs(this);
+  }
+
+  get outputs(): AssignSignerCall__Outputs {
+    return new AssignSignerCall__Outputs(this);
+  }
+}
+
+export class AssignSignerCall__Inputs {
+  _call: AssignSignerCall;
+
+  constructor(call: AssignSignerCall) {
+    this._call = call;
+  }
+
+  get idCertificate(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get assignedSigner(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get role(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class AssignSignerCall__Outputs {
+  _call: AssignSignerCall;
+
+  constructor(call: AssignSignerCall) {
     this._call = call;
   }
 }

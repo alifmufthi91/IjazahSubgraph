@@ -763,6 +763,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "certificateId",
+				"type": "uint256"
+			}
+		],
+		"name": "getNomorIjazah",
+		"outputs": [
+			{
+				"internalType": "bytes17",
+				"name": "",
+				"type": "bytes17"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "bytes",
 				"name": "ipfsHash",
 				"type": "bytes"
@@ -898,9 +917,9 @@
 		"name": "verifyCertificate",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "address",
 				"name": "",
-				"type": "bool"
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -927,9 +946,9 @@
 		"name": "verifyCertificateOwner",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "address",
 				"name": "",
-				"type": "bool"
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",

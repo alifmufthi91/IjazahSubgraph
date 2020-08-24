@@ -45,9 +45,11 @@ export function handleNewMatakuliah(event: MatkulCreated) : void {
 export function handleNewAmpu(event: MengajarCreated) : void {
     let ampu = new Ampu(event.params.ID.toString())
     ampu.namaMatkul = event.params.namaMatkul
-    ampu.idDosen = event.params.idDosen
-    ampu.idMatkul = event.params.idMatkul
-    ampu.idSemester = event.params.idSemester
+    ampu.dosen = event.params.idDosen.toString()
+    ampu.matkul = event.params.idMatkul.toString()
+    ampu.semester = event.params.idSemester.toString()
+    let semester = Semester.load(event.params.idSemester.toString())
+    ampu.kalendar = semester.KalendarAkademik.toString()
     ampu.kelas = event.params.kelas
     ampu.prodi = event.params.prodi
     ampu.timeCreated = event.params.timeCreated

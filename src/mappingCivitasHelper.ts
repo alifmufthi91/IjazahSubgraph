@@ -1,7 +1,7 @@
 import { MahasiswaCreated, CivitasCreated, CivitasAccountLinked, 
     CivitasAccountUnlinked, CivitasNIPUpdated, CivitasUpdated,
     MahasiswaAccountLinked, MahasiswaAccountUnlinked,
-    MahasiswaNIMUpdated, MahasiswaUpdated, DosenAdded, DosenStatusChanged } from '../generated/CivitasHelper/CivitasHelper'
+    MahasiswaNIMUpdated, MahasiswaUpdated, DosenAdded, DosenStatusChanged, MahasiswaLulusUpdated } from '../generated/CivitasHelper/CivitasHelper'
 import { Civita, Mahasiswa, Account, Dosen } from '../generated/schema'
 
 export function handleNewMahasiswa(event: MahasiswaCreated): void {
@@ -124,10 +124,19 @@ export function handleCivitasNIPUpdated(event: CivitasNIPUpdated): void {
   }
 }
 
-export function handleCahasiswaNIMUpdated(event: MahasiswaNIMUpdated): void {
-  let mahasiswa = Civita.load(event.params.oldNIM.toHexString())
+export function handleMahasiswaNIMUpdated(event: MahasiswaNIMUpdated): void {
+  let mahasiswa = Mahasiswa.load(event.params.oldNIM.toHexString())
   if( mahasiswa != null){
     mahasiswa.id = event.params.newNIM.toHexString()
+    mahasiswa.lastUpdated = event.params.timeUpdated
+    mahasiswa.save()
+  }
+}
+
+export function handleMahasiswaLulusUpdated(event: MahasiswaLulusUpdated): void {
+  let mahasiswa = Mahasiswa.load(event.params.nim.toHexString())
+  if( mahasiswa != null){
+    mahasiswa.isLulus = event.params.isLulus
     mahasiswa.lastUpdated = event.params.timeUpdated
     mahasiswa.save()
   }

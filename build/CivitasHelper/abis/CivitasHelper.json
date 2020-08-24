@@ -598,6 +598,11 @@
         "internalType": "bytes",
         "name": "",
         "type": "bytes"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

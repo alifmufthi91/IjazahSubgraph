@@ -474,16 +474,19 @@ export class CivitasHelper__getCivitasResult {
 export class CivitasHelper__getMahasiswaResult {
   value0: Bytes;
   value1: Bytes;
+  value2: boolean;
 
-  constructor(value0: Bytes, value1: Bytes) {
+  constructor(value0: Bytes, value1: Bytes, value2: boolean) {
     this.value0 = value0;
     this.value1 = value1;
+    this.value2 = value2;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
     map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
     map.set("value1", ethereum.Value.fromBytes(this.value1));
+    map.set("value2", ethereum.Value.fromBoolean(this.value2));
     return map;
   }
 }
@@ -548,13 +551,14 @@ export class CivitasHelper extends ethereum.SmartContract {
   getMahasiswa(NIM: Bytes): CivitasHelper__getMahasiswaResult {
     let result = super.call(
       "getMahasiswa",
-      "getMahasiswa(bytes12):(bytes12,bytes)",
+      "getMahasiswa(bytes12):(bytes12,bytes,bool)",
       [ethereum.Value.fromFixedBytes(NIM)]
     );
 
     return new CivitasHelper__getMahasiswaResult(
       result[0].toBytes(),
-      result[1].toBytes()
+      result[1].toBytes(),
+      result[2].toBoolean()
     );
   }
 
@@ -563,7 +567,7 @@ export class CivitasHelper extends ethereum.SmartContract {
   ): ethereum.CallResult<CivitasHelper__getMahasiswaResult> {
     let result = super.tryCall(
       "getMahasiswa",
-      "getMahasiswa(bytes12):(bytes12,bytes)",
+      "getMahasiswa(bytes12):(bytes12,bytes,bool)",
       [ethereum.Value.fromFixedBytes(NIM)]
     );
     if (result.reverted) {
@@ -573,7 +577,8 @@ export class CivitasHelper extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(
       new CivitasHelper__getMahasiswaResult(
         value[0].toBytes(),
-        value[1].toBytes()
+        value[1].toBytes(),
+        value[2].toBoolean()
       )
     );
   }
