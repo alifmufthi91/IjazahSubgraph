@@ -282,6 +282,36 @@ export class InterfaceUpdated__Params {
   }
 }
 
+export class MahasiswaLulusUpdated extends ethereum.Event {
+  get params(): MahasiswaLulusUpdated__Params {
+    return new MahasiswaLulusUpdated__Params(this);
+  }
+}
+
+export class MahasiswaLulusUpdated__Params {
+  _event: MahasiswaLulusUpdated;
+
+  constructor(event: MahasiswaLulusUpdated) {
+    this._event = event;
+  }
+
+  get sender(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get nim(): Bytes {
+    return this._event.parameters[1].value.toBytes();
+  }
+
+  get isLulus(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+
+  get timeUpdated(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
 export class RiwayatCreated extends ethereum.Event {
   get params(): RiwayatCreated__Params {
     return new RiwayatCreated__Params(this);
@@ -764,10 +794,10 @@ export class SertifikatHelper extends ethereum.SmartContract {
     signature: Bytes,
     role: Bytes,
     hash: Bytes
-  ): boolean {
+  ): Address {
     let result = super.call(
       "verifyCertificate",
-      "verifyCertificate(uint256,bytes,bytes,bytes9,bytes32):(bool)",
+      "verifyCertificate(uint256,bytes,bytes,bytes9,bytes32):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(certificateId),
         ethereum.Value.fromBytes(ownerSignature),
@@ -777,7 +807,7 @@ export class SertifikatHelper extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBoolean();
+    return result[0].toAddress();
   }
 
   try_verifyCertificate(
@@ -786,10 +816,10 @@ export class SertifikatHelper extends ethereum.SmartContract {
     signature: Bytes,
     role: Bytes,
     hash: Bytes
-  ): ethereum.CallResult<boolean> {
+  ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "verifyCertificate",
-      "verifyCertificate(uint256,bytes,bytes,bytes9,bytes32):(bool)",
+      "verifyCertificate(uint256,bytes,bytes,bytes9,bytes32):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(certificateId),
         ethereum.Value.fromBytes(ownerSignature),
@@ -802,17 +832,17 @@ export class SertifikatHelper extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   verifyCertificateOwner(
     certificateId: BigInt,
     hash: Bytes,
     signature: Bytes
-  ): boolean {
+  ): Address {
     let result = super.call(
       "verifyCertificateOwner",
-      "verifyCertificateOwner(uint256,bytes32,bytes):(bool)",
+      "verifyCertificateOwner(uint256,bytes32,bytes):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(certificateId),
         ethereum.Value.fromFixedBytes(hash),
@@ -820,17 +850,17 @@ export class SertifikatHelper extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBoolean();
+    return result[0].toAddress();
   }
 
   try_verifyCertificateOwner(
     certificateId: BigInt,
     hash: Bytes,
     signature: Bytes
-  ): ethereum.CallResult<boolean> {
+  ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "verifyCertificateOwner",
-      "verifyCertificateOwner(uint256,bytes32,bytes):(bool)",
+      "verifyCertificateOwner(uint256,bytes32,bytes):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(certificateId),
         ethereum.Value.fromFixedBytes(hash),
@@ -841,7 +871,7 @@ export class SertifikatHelper extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   verifySignature(hash: Bytes, signature: Bytes): Address {
@@ -868,44 +898,6 @@ export class SertifikatHelper extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-}
-
-export class ConstructorCall extends ethereum.Call {
-  get inputs(): ConstructorCall__Inputs {
-    return new ConstructorCall__Inputs(this);
-  }
-
-  get outputs(): ConstructorCall__Outputs {
-    return new ConstructorCall__Outputs(this);
-  }
-}
-
-export class ConstructorCall__Inputs {
-  _call: ConstructorCall;
-
-  constructor(call: ConstructorCall) {
-    this._call = call;
-  }
-
-  get accountManagerAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get civitasHelperAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get akademikHelperAddress(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class ConstructorCall__Outputs {
-  _call: ConstructorCall;
-
-  constructor(call: ConstructorCall) {
-    this._call = call;
   }
 }
 
@@ -943,6 +935,44 @@ export class AssignSignerCall__Outputs {
   _call: AssignSignerCall;
 
   constructor(call: AssignSignerCall) {
+    this._call = call;
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+
+  get accountManagerAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get civitasHelperAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get akademikHelperAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
     this._call = call;
   }
 }
@@ -1091,6 +1121,10 @@ export class PengisianNilaiMatkulCall__Inputs {
   get nilai(): Bytes {
     return this._call.inputValues[5].value.toBytes();
   }
+
+  get sks(): i32 {
+    return this._call.inputValues[6].value.toI32();
+  }
 }
 
 export class PengisianNilaiMatkulCall__Outputs {
@@ -1161,6 +1195,44 @@ export class PublishCertificateCall__Outputs {
   _call: PublishCertificateCall;
 
   constructor(call: PublishCertificateCall) {
+    this._call = call;
+  }
+}
+
+export class SetMahasiswaLulusCall extends ethereum.Call {
+  get inputs(): SetMahasiswaLulusCall__Inputs {
+    return new SetMahasiswaLulusCall__Inputs(this);
+  }
+
+  get outputs(): SetMahasiswaLulusCall__Outputs {
+    return new SetMahasiswaLulusCall__Outputs(this);
+  }
+}
+
+export class SetMahasiswaLulusCall__Inputs {
+  _call: SetMahasiswaLulusCall;
+
+  constructor(call: SetMahasiswaLulusCall) {
+    this._call = call;
+  }
+
+  get NIM(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get statusLulus(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+
+  get requiredSKS(): i32 {
+    return this._call.inputValues[2].value.toI32();
+  }
+}
+
+export class SetMahasiswaLulusCall__Outputs {
+  _call: SetMahasiswaLulusCall;
+
+  constructor(call: SetMahasiswaLulusCall) {
     this._call = call;
   }
 }

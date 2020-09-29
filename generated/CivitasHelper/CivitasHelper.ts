@@ -454,6 +454,26 @@ export class MahasiswaUpdated__Params {
   }
 }
 
+export class CivitasHelper__civitasOfNIPResult {
+  value0: Bytes;
+  value1: boolean;
+  value2: Bytes;
+
+  constructor(value0: Bytes, value1: boolean, value2: Bytes) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
+    map.set("value1", ethereum.Value.fromBoolean(this.value1));
+    map.set("value2", ethereum.Value.fromBytes(this.value2));
+    return map;
+  }
+}
+
 export class CivitasHelper__getCivitasResult {
   value0: Bytes;
   value1: Bytes;
@@ -491,9 +511,67 @@ export class CivitasHelper__getMahasiswaResult {
   }
 }
 
+export class CivitasHelper__mahasiswaOfNIMResult {
+  value0: boolean;
+  value1: boolean;
+  value2: Bytes;
+  value3: Bytes;
+
+  constructor(value0: boolean, value1: boolean, value2: Bytes, value3: Bytes) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromBoolean(this.value0));
+    map.set("value1", ethereum.Value.fromBoolean(this.value1));
+    map.set("value2", ethereum.Value.fromFixedBytes(this.value2));
+    map.set("value3", ethereum.Value.fromBytes(this.value3));
+    return map;
+  }
+}
+
 export class CivitasHelper extends ethereum.SmartContract {
   static bind(address: Address): CivitasHelper {
     return new CivitasHelper("CivitasHelper", address);
+  }
+
+  civitasOfNIP(param0: Bytes): CivitasHelper__civitasOfNIPResult {
+    let result = super.call(
+      "civitasOfNIP",
+      "civitasOfNIP(bytes21):(bytes21,bool,bytes)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return new CivitasHelper__civitasOfNIPResult(
+      result[0].toBytes(),
+      result[1].toBoolean(),
+      result[2].toBytes()
+    );
+  }
+
+  try_civitasOfNIP(
+    param0: Bytes
+  ): ethereum.CallResult<CivitasHelper__civitasOfNIPResult> {
+    let result = super.tryCall(
+      "civitasOfNIP",
+      "civitasOfNIP(bytes21):(bytes21,bool,bytes)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new CivitasHelper__civitasOfNIPResult(
+        value[0].toBytes(),
+        value[1].toBoolean(),
+        value[2].toBytes()
+      )
+    );
   }
 
   dosenAktif(param0: BigInt): boolean {
@@ -694,6 +772,43 @@ export class CivitasHelper extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  mahasiswaOfNIM(param0: Bytes): CivitasHelper__mahasiswaOfNIMResult {
+    let result = super.call(
+      "mahasiswaOfNIM",
+      "mahasiswaOfNIM(bytes12):(bool,bool,bytes12,bytes)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return new CivitasHelper__mahasiswaOfNIMResult(
+      result[0].toBoolean(),
+      result[1].toBoolean(),
+      result[2].toBytes(),
+      result[3].toBytes()
+    );
+  }
+
+  try_mahasiswaOfNIM(
+    param0: Bytes
+  ): ethereum.CallResult<CivitasHelper__mahasiswaOfNIMResult> {
+    let result = super.tryCall(
+      "mahasiswaOfNIM",
+      "mahasiswaOfNIM(bytes12):(bool,bool,bytes12,bytes)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new CivitasHelper__mahasiswaOfNIMResult(
+        value[0].toBoolean(),
+        value[1].toBoolean(),
+        value[2].toBytes(),
+        value[3].toBytes()
+      )
+    );
   }
 }
 
@@ -903,12 +1018,46 @@ export class SetMahasiswaLulusCall__Inputs {
   get statusLulus(): boolean {
     return this._call.inputValues[1].value.toBoolean();
   }
+
+  get sender(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
 }
 
 export class SetMahasiswaLulusCall__Outputs {
   _call: SetMahasiswaLulusCall;
 
   constructor(call: SetMahasiswaLulusCall) {
+    this._call = call;
+  }
+}
+
+export class SetSertifikatHelperCall extends ethereum.Call {
+  get inputs(): SetSertifikatHelperCall__Inputs {
+    return new SetSertifikatHelperCall__Inputs(this);
+  }
+
+  get outputs(): SetSertifikatHelperCall__Outputs {
+    return new SetSertifikatHelperCall__Outputs(this);
+  }
+}
+
+export class SetSertifikatHelperCall__Inputs {
+  _call: SetSertifikatHelperCall;
+
+  constructor(call: SetSertifikatHelperCall) {
+    this._call = call;
+  }
+
+  get sertifikatHelper(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetSertifikatHelperCall__Outputs {
+  _call: SetSertifikatHelperCall;
+
+  constructor(call: SetSertifikatHelperCall) {
     this._call = call;
   }
 }
